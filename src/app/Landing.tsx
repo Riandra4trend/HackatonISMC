@@ -15,9 +15,9 @@ const Landing = () => {
             className="bg-cover absolute inset-0 -z-10"
             />
       <div className="flex  flex-col gap-4 text-center lg:text-left">
-        <h2 className="font-bold text-4xl lg:text-7xl">Welcome to</h2>
+        <h2 className="font-bold text-white text-4xl lg:text-7xl">Welcome to</h2>
         <h2 className="font-bold text-4xl lg:text-7xl">
-          <span className="text-[#A3CC81]">eco</span><span className="text-[#5D7853]">pti</span><span className="text-black">mine</span>
+          <span className="text-[#A3CC81]">eco</span><span className="text-[#5D7853]">pti</span><span className="text-[#EF9500]">mine</span>
         </h2>
         <h3 className="text-slate-500 text-lg lg:text-3xl">
             Solution of eco fleet management system!
@@ -25,10 +25,10 @@ const Landing = () => {
       
 
       <div className="w-full lg:w-[40rem] lg:bg-white lg:rounded-full lg:shadow-2xl flex flex-col lg:flex-row items-center lg:justify-between px-8 py-3">
-        <p className="text-slate-500 font-bold text-center">ecoptimine</p>
+        <p className=" font-bold text-center text-black">ecoptimine</p>
 
         <div className="flex flex-col lg:flex-row gap-4">
-          <div className="bg-[#562F5E] rounded-full">
+          <div className="bg-[#EF9500] rounded-full">
             <div
               className="flex flex-row items-center px-3 py-2 cursor-pointer select-none"
               onClick={() => router.push("/register")}
@@ -44,7 +44,7 @@ const Landing = () => {
             </div>
           </div>
 
-          <div className="bg-[#EF9500] rounded-full">
+          <div className="bg-[#5AE4A7] rounded-full">
             <div
               className="flex flex-row items-center px-3 py-2 cursor-pointer select-none"
               onClick={() => router.push("/login")}

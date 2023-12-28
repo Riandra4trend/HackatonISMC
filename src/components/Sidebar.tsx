@@ -49,19 +49,19 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
   const pathname = usePathname();
 
   return (
-    <div className="z-[99999] hidden lg:flex flex-col bg-gray-100 w-72 fixed h-full">
+    <div className="z-[99999] hidden lg:flex flex-col bg-[#4A342E] w-72 fixed h-full">
       <div className="flex flex-col space-y-4 w-60 ml-6">
         <div className="flex justify-center">
           <Image src="/logo.svg" alt="logo" width={350} height={250} />
         </div>
-        <div className="font-bold flex px-2 text-gray-700">General</div>
+        <div className="font-bold flex px-2 text-white">General</div>
 
         {user?.role === "CUSTOMER"
           ? SidebarDataCustomer.map((item, index) => (
               <a href={item.path} key={index}>
                 <div
-                  className={`flex items-center px-4 py-2 rounded-full transition hover:bg-gray-300 ${
-                    item.path === pathname ? "bg-gray-300" : "bg-white"
+                  className={`flex items-center px-4 py-2 rounded-full transition hover:bg-[#7B5643] ${
+                    item.path === pathname ? "bg-[#7B5643]" : "bg-[#CC875F]"
                   }`}
                 >
                   <div
@@ -69,15 +69,15 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                   >
                     <item.icon className="text-base text-black" />
                   </div>
-                  <div className="text-black font-bold ml-4">{item.title}</div>
+                  <div className="text-white font-bold ml-4">{item.title}</div>
                 </div>
               </a>
             ))
           : SidebarDataAdmin.map((item, index) => (
               <a href={item.path} key={index}>
                 <div
-                  className={`flex items-center px-4 py-2 rounded-full transition hover:bg-gray-300 ${
-                    item.path === pathname ? "bg-gray-300" : "bg-white"
+                  className={`flex items-center px-4 py-2 rounded-full transition hover:bg-[#7B5643] ${
+                    item.path === pathname ? "bg-[#7B5643]" : "bg-[#CC875F]"
                   }`}
                 >
                   <div
@@ -85,7 +85,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                   >
                     <item.icon className="text-base text-black" />
                   </div>
-                  <div className="text-black font-bold ml-4">{item.title}</div>
+                  <div className="text-white font-bold ml-4">{item.title}</div>
                 </div>
               </a>
             ))}
@@ -94,7 +94,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
       <div className="mt-48">
         <div
           className="flex items-center px-6 py-4 rounded-full transition bg-red-600 hover:bg-red-800 w-60 ml-6 cursor-pointer"
-          onClick={() => signOut()}
+          // onClick={() => signOut()}
         >
           <BiLogOut className="text-xl text-black" />
           <div className="text-white font-bold ml-2 curs">Logout</div>
