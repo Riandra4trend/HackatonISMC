@@ -41,7 +41,7 @@ export default function Login() {
           <div className="flex justify-between">
 
             <h1 className="mt-[12px] text-stone-800 text-[38px] font-bold">
-              {" "}
+              {"  "}
               Login{" "}
             </h1>
             <Image
