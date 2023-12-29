@@ -35,37 +35,39 @@ export default function Login() {
 //   };
 
   return (
-    <div className="flex h-screen w-full bg-gradient-to-l from-cyan-100 via-slate-400 to-sky-100 overflow-hidden relative">
-      <Image
-        src="/login/tone1.svg"
-        alt="icon"
-        width={2000}
-        height={1080}
-        className="bg-cover absolute"
-        />
-      <div className="flex m-auto ">
-        <div className="pt-[113px] pb-[124px] px-[120px] bg-white bg-opacity-30 rounded-xl backdrop-blur">
-          <h1 className="text-black text-2xl font-bold">Your Logo</h1>
-          <h1 className="mt-[9px] text-stone-800 text-[38px] font-bold">
-            {" "}
-            Login{" "}
-          </h1>
-          <p className="mt-[26px] text-black text-sm font-normal">Email</p>
+    <div className="flex min-h-screen w-full bg-gradient-to-l from-cyan-100 via-slate-400 to-sky-100 overflow-hidden fixed top-0 left-0 bg-cover" style={{backgroundImage: `url('/landing/tone1.svg')`}}>
+      <div className="flex m-auto w-full justify-center align-center">
+        <div className="w-1/2 min-w-[30rem] pt-[113px] pb-[124px] px-[100px] bg-white bg-opacity-30 rounded-xl backdrop-blur">
+          <div className="flex justify-between">
+
+            <h1 className="mt-[12px] text-stone-800 text-[38px] font-bold">
+              {" "}
+              Login{" "}
+            </h1>
+            <Image
+                    className=""
+                    src="/logo.svg"
+                    alt="icon-user"
+                    width={100}
+                    height={100}
+                    />
+          </div>
+          <p className="mt-[10px] text-black text-sm font-normal">Email</p>
           <div className="mt-2 bg-white rounded-lg">
             <input
               type="email"
               placeholder="Enter your email"
-              className=" text-black pt-[15.57px] pb-[16.44px] pl-[22px] pr-[300px] rounded-lg"
+              className="w-full text-black pt-[15.57px] pb-[16.44px] px-[22px] rounded-lg focus:ring-0 focus:outline-none"
               onChange={(e) => setData({ ...data, email: e.target.value })}
             />
           </div>
           <p className="mt-[30.56px] text-black text-sm font-normal">
             Password
           </p>
-          <div className="flex flex-row items-center mt-2 bg-white rounded-lg border-black">
+          <div className="flex flex-row items-center mt-2 bg-white rounded-lg border-black justify-between pr-3">
             <input
               type={showPassword ? "text" : "password"}
-              className=" text-black rounded-lg pt-[15.57px] pb-[16.44px] pl-[22px] pr-[300px]"
+              className="w-full text-black rounded-lg pt-[15.57px] pb-[16.44px] pl-[22px] focus:ring-0 focus:outline-none"
               placeholder="Enter your password"
               onChange={(e) => setData({ ...data, password: e.target.value })}
             />
@@ -73,13 +75,13 @@ export default function Login() {
             {showPassword ? (
               <AiOutlineEye
                 data-testid="show-password-button"
-                className="text-[#737373] text-xl cursor-pointer ml-[450px] absolute"
+                className="text-[#737373] text-xl cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
               />
             ) : (
               <AiOutlineEyeInvisible
                 data-testid="show-password-button"
-                className="text-[#737373] text-xl cursor-pointer ml-[450px] absolute"
+                className="text-[#737373] text-xl cursor-pointer"
                 onClick={() => setShowPassword(!showPassword)}
               />
             )}

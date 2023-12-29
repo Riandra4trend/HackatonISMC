@@ -6,15 +6,8 @@ const Landing = () => {
   const router = useRouter();
 
   return (
-    <div className="w-full h-full min-h-screen bg-gradient-to-r px-12 py-28 flex flex-col justify-center gap-8">
-        <Image
-            src="/landing/tone1.svg"
-            alt="icon"
-            width={2000}
-            height={1080}
-            className="bg-cover absolute inset-0 -z-10"
-            />
-      <div className="flex  flex-col gap-4 text-center lg:text-left">
+    <div className="w-full min-h-screen bg-gradient-to-r px-12 py-28 flex flex-col justify-center gap-8 bg-cover fixed top-0 left-0" style={{backgroundImage: `url('/landing/tone1.svg')`}}>
+      <div className="flex flex-col gap-4 text-center lg:text-left">
         <h2 className="font-bold text-white text-4xl lg:text-7xl">Welcome to</h2>
         <h2 className="font-bold text-4xl lg:text-7xl">
           <span className="text-[#A3CC81]">eco</span><span className="text-[#5D7853]">pti</span><span className="text-[#EF9500]">mine</span>
@@ -24,9 +17,15 @@ const Landing = () => {
         </h3>
       
 
-      <div className="w-full lg:w-[40rem] lg:bg-white lg:rounded-full lg:shadow-2xl flex flex-col lg:flex-row items-center lg:justify-between px-8 py-3">
-        <p className=" font-bold text-center text-black">ecoptimine</p>
-
+      <div className="w-full lg:w-fit lg:bg-white lg:rounded-full lg:shadow-2xl flex flex-col lg:flex-row items-center px-5 py-2 lg:justify-evenly">
+        <div className="font-bold text-center bg-white lg:bg-transparent w-fit mr-2">      
+            <Image
+                className=""
+                src="/logo.svg"
+                alt="icon-user"
+                width={60}
+                height={60}
+                /></div>
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="bg-[#EF9500] rounded-full">
             <div
