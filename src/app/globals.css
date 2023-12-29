@@ -25,3 +25,8 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
