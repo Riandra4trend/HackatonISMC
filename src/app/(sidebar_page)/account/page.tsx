@@ -1,6 +1,6 @@
 // import Register from "@/app/register/Register";
-import Vehicle from "./Account";
+import Account from "./Account";
 
-const page = () => <Vehicle />;
+const page = () => <Account />;
 
 export default page;

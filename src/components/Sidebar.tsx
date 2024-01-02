@@ -53,9 +53,9 @@ const Config = () => {
   const pathname = usePathname();
 
   return (
-    <div className="z-[99999] hidden lg:flex flex-col bg-white w-64 relative h-full">
-      <div className="flex flex-col">
-        <div className="flex justify-center mt-[42px]">
+    <div className="z-[99999] hidden lg:flex flex-col bg-white w-64 relative min-h-screen py-3">
+      <div className="flex flex-col h-full">
+        <div className="flex justify-center">
           <Image src="/logo.svg" alt="logo" width={100} height={100} />
         </div>
         <div className="mx-[25px] mt-[42px] relative">
@@ -156,15 +156,15 @@ const Config = () => {
           ))}
         </div>
       </div>
-      <div className="mt-20 border-b border-[#818181] w-64"></div> 
-      <div className="mt-20">
-        <div
-          className="flex px-7 mx-7 py-[10px] rounded-full transition bg-[#818181] hover:bg-zinc-700 cursor-pointer"
-          // onClick={() => signOut()}
-        >
-          <BiLogOut className="text-xl text-white" />
-          <div className="text-white font-bold ml-5 curs">Logout</div>
-        </div>
+      <div className="border-b border-[#818181] w-64 mb-5 relative"></div> 
+        <div className="relative flex justify-center items-center">
+          <div
+            className="justify-center gap-2 items-center flex w-fit px-7 py-[10px] rounded-full transition bg-[#818181] hover:bg-zinc-700 cursor-pointer"
+            // onClick={() => signOut()}
+          >
+            <BiLogOut className="text-xl text-white" />
+            <div className="text-white font-bold curs">Logout</div>
+          </div>
       </div>
     </div>
   );

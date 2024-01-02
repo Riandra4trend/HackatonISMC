@@ -17,9 +17,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-[#EDF2F7]`}>
-        {/* <ToasterContext /> */}
-        <div>{children}</div>
+      <body className={`${inter.className} bg-[#EDF2F7] fixed top-0 left-0 w-screen h-screen`}>
+        {children}
       </body>
     </html>
   );
