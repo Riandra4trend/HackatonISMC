@@ -1,11 +1,13 @@
 "use client";
 import React from "react";
-import { BiSolidDashboard, BiHistory, BiLogOut } from "react-icons/bi";
-
-import { FaDatabase } from "react-icons/fa";
+import { BiLogOut } from "react-icons/bi";
+import { RxDashboard } from "react-icons/rx";
+import { FaCar } from "react-icons/fa";
+import { GrDocumentConfig } from "react-icons/gr";
 import { TbReport } from "react-icons/tb";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { RiArrowDownSLine } from "react-icons/ri";
 // import { signOut } from "next-auth/react";
 // import { Session } from "next-auth";
 
@@ -13,20 +15,22 @@ const SidebarDataCustomer = [
   {
     title: "Dashboard",
     path: "/dashboard",
-    icon: BiSolidDashboard,
-    color: "bg-blue-500",
+    icon: RxDashboard,
+  },
+  {
+    title: "Vehicle",
+    path: "/vehicle",
+    icon: FaCar,
   },
   {
     title: "Report",
     path: "/report",
     icon: TbReport,
-    color: "bg-yellow-500",
   },
   {
-    title: "Database",
-    path: "/database",
-    icon: FaDatabase,
-    color: "bg-red-500",
+    title: "Config",
+    path: "/config",
+    icon: GrDocumentConfig,
   },
 ];
 
@@ -34,74 +38,136 @@ const SidebarDataAdmin = [
   {
     title: "Dashboard",
     path: "/dashboard",
-    icon: BiSolidDashboard,
-    color: "bg-blue-500",
+    icon: RxDashboard,
   },
   {
     title: "Report",
     path: "/report",
     icon: TbReport,
-    color: "bg-yellow-500",
   },
 ];
 
-const Sidebar = ({ user }: { user: Session["user"] }) => {
+// ... (imports dan kode lainnya)
+
+const Config = () => {
   const pathname = usePathname();
 
   return (
-    <div className="z-[99999] hidden lg:flex flex-col bg-[#4A342E] w-72 fixed h-full">
-      <div className="flex flex-col space-y-4 w-60 ml-6">
-        <div className="flex justify-center">
-          <Image src="/logo.svg" alt="logo" width={350} height={250} />
+    <div className="z-[99999] hidden lg:flex flex-col bg-white w-64 fixed h-full">
+      <div className="flex flex-col">
+        <div className="flex justify-center mt-[42px]">
+          <Image src="/logo.svg" alt="logo" width={100} height={100} />
         </div>
-        <div className="font-bold flex px-2 text-white">General</div>
+        <div className="mx-[25px] mt-[42px] relative">
+          {SidebarDataCustomer.map((item, index) => (
+            <a href={item.path} key={index}>
+              <div
+                className={`flex items-center px-7 py-[15px] my-[5px] rounded-r-full transition hover:bg-[#A2CC82] relative ${
+                  (item.path === pathname || `${item.path}Bulanan` === pathname || `${item.path}Analysis` === pathname) ? "bg-[#A2CC82]" : "bg-white"
+                }`}                
+              >
+                { (item.path === pathname || `${item.path}Analysis` === pathname || `${item.path}Bulanan` === pathname) && (
+                  <div className="bg-black px-2 h-full absolute -ml-7"></div>
+                )}
 
-        {user?.role === "CUSTOMER"
-          ? SidebarDataCustomer.map((item, index) => (
-              <a href={item.path} key={index}>
+                <div className={`flex items-center w-6 aspect-square justify-center`}>
+                  <item.icon className={`text-base ${
+                  (item.path === pathname || `${item.path}Bulanan` === pathname || `${item.path}Analysis` === pathname) ? "text-black" : "text-[#818181]"}`}/>
+                </div>
                 <div
-                  className={`flex items-center px-4 py-2 rounded-full transition hover:bg-[#7B5643] ${
-                    item.path === pathname ? "bg-[#7B5643]" : "bg-[#CC875F]"
+                  className={`ml-5 font-extrabold text-sm font-['Open Sans'] ${
+                    (item.path === pathname || `${item.path}Bulanan` === pathname || `${item.path}Analysis` === pathname) ? "text-black" : "text-[#818181]"
                   }`}
                 >
-                  <div
-                    className={`flex items-center w-10 aspect-square justify-center rounded-full ${item.color} shadow-xl `}
-                  >
-                    <item.icon className="text-base text-black" />
-                  </div>
-                  <div className="text-white font-bold ml-4">{item.title}</div>
+                  {item.title}
                 </div>
-              </a>
-            ))
-          : SidebarDataAdmin.map((item, index) => (
-              <a href={item.path} key={index}>
-                <div
-                  className={`flex items-center px-4 py-2 rounded-full transition hover:bg-[#7B5643] ${
-                    item.path === pathname ? "bg-[#7B5643]" : "bg-[#CC875F]"
-                  }`}
-                >
-                  <div
-                    className={`flex items-center w-10 aspect-square justify-center rounded-full ${item.color} shadow-xl `}
-                  >
-                    <item.icon className="text-base text-black" />
-                  </div>
-                  <div className="text-white font-bold ml-4">{item.title}</div>
-                </div>
-              </a>
-            ))}
+                {item.title === "Report" && (
+                  <RiArrowDownSLine className={`ml-7 w-8 ${item.path === pathname ? "text-black" : "text-[#818181]"}`}/>
+                )}
+              </div>
+              {item.path === "/report" &&  pathname === "/report" &&(
+                <>
+                  <a href="/reportBulanan">
+                    <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
+                      <div
+                        className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
+                      >
+                        Report Bulanan
+                      </div>
+                    </div>
+                  </a>
+                  <a href="/reportAnalysis">
+                    <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
+                    <div
+                        className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
+                      >
+                      
+                        Report Analysis
+                      </div>
+                    </div>
+                  </a>
+                </>
+              )}
+              {item.path === "/report" && pathname === "/reportBulanan" &&(
+                <>
+                  <a href="/reportBulanan">
+                    <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
+                      <div
+                        className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#A2CC82]"
+                      >
+                        Report Bulanan
+                      </div>
+                    </div>
+                  </a>
+                  <a href="/reportAnalysis">
+                    <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
+                    <div
+                        className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
+                      >    
+                        Report Analysis
+                      </div>
+                    </div>
+                  </a>
+                </>
+              )}
+              {item.path === "/report" && pathname === "/reportAnalysis" &&(
+                <>
+                  <a href="/reportBulanan">
+                    <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
+                      <div
+                        className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
+                      >
+                        Report Bulanan
+                      </div>
+                    </div>
+                  </a>
+                  <a href="/reportAnalysis">
+                    <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
+                    <div
+                        className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#A2CC82]"
+                      >
+                        Report Analysis
+                      </div>
+                    </div>
+                  </a>
+                </>
+              )}
+            </a>
+          ))}
+        </div>
       </div>
-
-      <div className="mt-48">
+      <div className="mt-20 border-b border-[#818181] w-64"></div> 
+      <div className="mt-20">
         <div
-          className="flex items-center px-6 py-4 rounded-full transition bg-red-600 hover:bg-red-800 w-60 ml-6 cursor-pointer"
+          className="flex px-7 mx-7 py-[10px] rounded-full transition bg-[#818181] hover:bg-zinc-700 cursor-pointer"
           // onClick={() => signOut()}
         >
-          <BiLogOut className="text-xl text-black" />
-          <div className="text-white font-bold ml-2 curs">Logout</div>
+          <BiLogOut className="text-xl text-white" />
+          <div className="text-white font-bold ml-5 curs">Logout</div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Sidebar;
+export default Config;
