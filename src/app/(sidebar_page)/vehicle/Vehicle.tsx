@@ -230,7 +230,7 @@ export default function Vehicle() {
 ]
 
   return (
-    <div className="flex h-screen w-full fixed">
+    <div className="flex h-screen w-full">
       <div className="w-full bg-[#F7F7F7] flex flex-col p-[24px] gap-[24px]">
         <div className="w-full h-20 bg-white rounded-[16px] text-black flex flex-row px-5 justify-between items-center">
           <h1 className="font-bold my-auto text-2xl p-2">
