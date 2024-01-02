@@ -53,7 +53,7 @@ const Config = () => {
   const pathname = usePathname();
 
   return (
-    <div className="z-[99999] hidden lg:flex flex-col bg-white w-64 fixed h-full">
+    <div className="z-[99999] hidden lg:flex flex-col bg-white w-64 relative h-full">
       <div className="flex flex-col">
         <div className="flex justify-center mt-[42px]">
           <Image src="/logo.svg" alt="logo" width={100} height={100} />
