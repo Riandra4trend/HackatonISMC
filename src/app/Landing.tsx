@@ -18,9 +18,9 @@ const Landing = () => {
       
 
       <div className="w-full lg:w-fit lg:bg-white lg:rounded-full lg:shadow-2xl flex flex-col lg:flex-row items-center px-5 py-2 lg:justify-evenly">
-        <div className="font-bold text-center bg-white lg:bg-transparent w-fit mr-2">      
+        <div className="font-bold text-center bg-white rounded-full bg-transparent w-fit mr-2">      
             <Image
-                className=""
+                className="bg-white rounded-[16px] mb-2 pb-1 lg:pb-0"
                 src="/logo.svg"
                 alt="icon-user"
                 width={60}

@@ -5,7 +5,7 @@ import { useState } from "react";
 // import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 // import { signIn } from "next-auth/react";
-
+import  Config  from "../../components/Sidebar"
 export default function Vehicle() {
   const router = useRouter();
 
@@ -231,13 +231,11 @@ export default function Vehicle() {
 
   return (
     <div className="flex h-screen w-full fixed">
-      <div className="w-[256px] bg-white">
-
-      </div>
+      <Config></Config>
       
       <div className="w-full bg-[#F7F7F7] flex flex-col p-[24px] gap-[24px]">
         <div className="w-full h-20 bg-white rounded-[16px] text-black flex flex-row px-5 justify-between items-center">
-          <h1 className="font-bold my-auto text-2xl">
+          <h1 className="font-bold my-auto text-2xl p-2">
             Vehicle Overview
           </h1>
           <FaBell className="text-gray-500"></FaBell>
