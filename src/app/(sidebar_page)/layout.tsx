@@ -12,11 +12,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="flex flex-row max-h-screen w-full h-full">
              
         <Sidebar/>
-        <div className="lg:pl-[280px]">{children}</div>
+        {children}
       
-    </>
+    </div>
   );
 }
