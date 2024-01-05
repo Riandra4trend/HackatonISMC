@@ -28,7 +28,7 @@ export default function Vehicle() {
           <FaBell className="text-gray-500"></FaBell>
         </div>
         <div className="w-full h-full flex-row flex flex-wrap gap-[24px] justify-center overflow-y-hiddem lg:overflow-hidden" id="style-2">
-            <div className="rounded-[16px] p-20 bg-white flex w-full h-fit justify-center flex-row gap-5 flex-col lg:flex-row">
+            <div className="rounded-[16px] p-20 bg-white flex w-full h-fit justify-center items-center flex-row gap-5 flex-col lg:flex-row">
               <div className="items-center flex flex-col gap-2">
                 <FaUser className="w-[150px] h-[150px] text-black">
 
