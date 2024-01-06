@@ -5,11 +5,17 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  } 
+
+enum Role {
+  OPERATIONAL
+  MANAGER
 }
 
 model user {
-  user_id    Int     @id @default(autoincrement())
+  id         String  @id @default(uuid())
+  email      String  @unique @db.VarChar(256)
   username   String  @unique @db.VarChar(256)
   password   String  @db.VarChar(256)
-  is_manager Boolean @default(false)
+  role       Role    @default(OPERATIONAL)
 }
