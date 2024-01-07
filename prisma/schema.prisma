@@ -13,7 +13,7 @@ enum Role {
 }
 
 model user {
-  id         String  @id @default(uuid())
+  id         String  @id @default(uuid()) 
   email      String  @unique @db.VarChar(256)
   username   String  @unique @db.VarChar(256)
   password   String  @db.VarChar(256)
