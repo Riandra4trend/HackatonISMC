@@ -67,9 +67,8 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
           <Image src="/logo.svg" alt="logo" width={100} height={100} />
         </div>
         <div className="mx-[25px] mt-[42px] relative">
-          {user?.role === "MANAGER" ? (
-            // SidebarDataCustomer untuk MANAGER
-            SidebarDataManager.map((item, index) => (
+        {user?.role === "CUSTOMER"
+          ? SidebarDataManager.map((item, index) => (
               <a href={item.path} key={index}>
                 <div
                   className={`flex items-center px-7 py-[15px] my-[5px] rounded-r-full transition hover:bg-[#A2CC82] relative ${
@@ -168,32 +167,105 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                 )}
               </a>
             ))
-          ) : user?.role === "OPERATIONAL" ? (
-            // SidebarDataAdmin untuk OPERATIONAL
-            SidebarDataOperasional.map((item, index) => (
+          : SidebarDataOperasional.map((item, index) => (
               <a href={item.path} key={index}>
                 <div
                   className={`flex items-center px-7 py-[15px] my-[5px] rounded-r-full transition hover:bg-[#A2CC82] relative ${
-                    item.path === pathname ? "bg-[#A2CC82]" : "bg-white"
+                    (item.path === pathname || `${item.path}Bulanan` === pathname || `${item.path}Analysis` === pathname) ? "bg-[#A2CC82]" : "bg-white"
                   }`}
                 >
+                  {item.path === pathname && (
+                    <div className="bg-black px-2 h-full absolute -ml-7"></div>
+                  )}
+
                   <div className={`flex items-center w-6 aspect-square justify-center`}>
                     <item.icon
-                      className={`text-base ${item.path === pathname ? "text-black" : "text-[#818181]"}`}
+                      className={`text-base ${
+                        (item.path === pathname || `${item.path}Bulanan` === pathname || `${item.path}Analysis` === pathname) ? "text-black" : "text-[#818181]"
+                      }`}
                     />
                   </div>
                   <div
                     className={`ml-5 font-extrabold text-sm font-['Open Sans'] ${
-                      item.path === pathname ? "text-black" : "text-[#818181]"
+                      (item.path === pathname || `${item.path}Bulanan` === pathname || `${item.path}Analysis` === pathname) ? "text-black" : "text-[#818181]"
                     }`}
                   >
                     {item.title}
                   </div>
+                  {item.title === "Report" && (
+                    <RiArrowDownSLine
+                      className={`ml-7 w-8 ${item.path === pathname ? "text-black" : "text-[#818181]"}`}
+                    />
+                  )}
                 </div>
+                {item.path === "/report" && pathname === "/report" && (
+                  <>
+                    <a href="/reportBulanan">
+                      <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
+                        <div
+                          className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
+                        >
+                          Report Bulanan
+                        </div>
+                      </div>
+                    </a>
+                    <a href="/reportAnalysis">
+                      <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
+                        <div
+                          className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
+                        >
+                          Report Analysis
+                        </div>
+                      </div>
+                    </a>
+                  </>
+                )}
+                {item.path === "/report" && pathname === "/reportBulanan" && (
+                  <>
+                    <a href="/reportBulanan">
+                      <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
+                        <div
+                          className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#A2CC82]"
+                        >
+                          Report Bulanan
+                        </div>
+                      </div>
+                    </a>
+                    <a href="/reportAnalysis">
+                      <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
+                        <div
+                          className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
+                        >
+                          Report Analysis
+                        </div>
+                      </div>
+                    </a>
+                  </>
+                )}
+                {item.path === "/report" && pathname === "/reportAnalysis" && (
+                  <>
+                    <a href="/reportBulanan">
+                      <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
+                        <div
+                          className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
+                        >
+                          Report Bulanan
+                        </div>
+                      </div>
+                    </a>
+                    <a href="/reportAnalysis">
+                      <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
+                        <div
+                          className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#A2CC82]"
+                        >
+                          Report Analysis
+                        </div>
+                      </div>
+                    </a>
+                  </>
+                )}
               </a>
-            ))
-          ) : null}
-        </div>
+            ))}
       </div>
 
       <div className="border-b border-[#818181] w-64 mb-5 relative"></div>
@@ -206,8 +278,11 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
           <div className="text-white font-bold curs">Logout</div>
         </div>
       </div>
+      </div>
     </div>
   );
 };
+
+
 
 export default Sidebar;
