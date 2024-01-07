@@ -1,9 +1,9 @@
 import Sidebar from "../../components/Sidebar";
-// import Navbar from "@/components/Navbar";
 import Provider from "@/components/Provider";
-import NavbarFetcher from "@/components/NavbarFetcher";
 import SidebarFetcher from "@/components/SidebarFetcher";
 import { Session } from "next-auth";
+// import Navbar from "@/components/Navbar";
+// import NavbarFetcher from "@/components/NavbarFetcher";
 // import { Notification } from "@prisma/client";
 
 export default function RootLayout({

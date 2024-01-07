@@ -67,7 +67,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
           <Image src="/logo.svg" alt="logo" width={100} height={100} />
         </div>
         <div className="mx-[25px] mt-[42px] relative">
-        {user?.role === "CUSTOMER"
+        {user?.role === "MANAGER"
           ? SidebarDataManager.map((item, index) => (
               <a href={item.path} key={index}>
                 <div
