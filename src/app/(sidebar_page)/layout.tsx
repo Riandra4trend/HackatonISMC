@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="flex flex-row max-h-screen w-full h-full">
       <Provider>
         <SidebarFetcher>
           {({ user }) => (
@@ -22,8 +22,8 @@ export default function RootLayout({
           )}
         </SidebarFetcher>
         
-        <div className="lg:pl-[280px]">{children}</div>
+        {children}
       </Provider>
-    </>
+    </div>
   );
 }
