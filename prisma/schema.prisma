@@ -5,17 +5,36 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  } 
+}
+
+model user {
+  id       String @id @default(uuid())
+  email    String @unique @db.VarChar(256)
+  username String @unique @db.VarChar(256)
+  password String @db.VarChar(256)
+  role     Role   @default(OPERATIONAL)
+}
+
+model Loader {
+  id           String @id @default(uuid())
+  productivity Float? @default(0) @db.Real
+  assign String? @default("-") @db.VarChar(256)
+  working_hours Int? @default(0) @db.Integer
+  operator String? @default("-") @db.VarChar(256)
+  is_ready Boolean @default(true)
+}
+
+model Hauler {
+  id           String @id @default(uuid())
+  productivity Float? @default(0) @db.Real
+  assign String? @default("-") @db.VarChar(256)
+  distance Int? @default(0) @db.Integer
+  operator String? @default("-") @db.VarChar(256)
+  is_ready Boolean @default(true)
+
+}
 
 enum Role {
   OPERATIONAL
   MANAGER
-}
-
-model user {
-  id         String  @id @default(uuid()) 
-  email      String  @unique @db.VarChar(256)
-  username   String  @unique @db.VarChar(256)
-  password   String  @db.VarChar(256)
-  role       Role    @default(OPERATIONAL)
 }
