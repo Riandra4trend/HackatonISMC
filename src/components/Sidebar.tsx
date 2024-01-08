@@ -53,9 +53,6 @@ const SidebarDataOperasional = [
   },
 ];
 
-// ... (imports dan kode lainnya)
-
-// ... (imports dan kode lainnya)
 
 const Sidebar = ({ user }: { user: Session["user"] }) => {
   const pathname = usePathname();
@@ -67,8 +64,8 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
           <Image src="/logo.svg" alt="logo" width={100} height={100} />
         </div>
         <div className="mx-[25px] mt-[42px] relative">
-        {user?.role === "MANAGER"
-          ? SidebarDataManager.map((item, index) => (
+        {user?.role === "MANAGER" ? (
+          SidebarDataManager.map((item, index) => (
               <a href={item.path} key={index}>
                 <div
                   className={`flex items-center px-7 py-[15px] my-[5px] rounded-r-full transition hover:bg-[#A2CC82] relative ${
@@ -166,7 +163,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                   </>
                 )}
               </a>
-            ))
+            ))) 
           : SidebarDataOperasional.map((item, index) => (
               <a href={item.path} key={index}>
                 <div

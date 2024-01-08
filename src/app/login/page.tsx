@@ -4,18 +4,11 @@ import { Session } from "next-auth";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 
-// const page = async () => {
-//   const session = await getServerSession(authOptions) as Session;
-
-//   if (session) return redirect("/dashboard");
-//   return <Login />;
-// };
-
 const page = async () => {
-    const session = await getServerSession(authOptions) as Session;
-  
-    if (session) return redirect("/dashboard");
-    return <Login />;
-  };
-  
-  export default page;
+  const session = await getServerSession(authOptions) as Session;
+
+  if (session) return redirect("/dashboard");
+  return <Login />;
+};
+
+export default page;

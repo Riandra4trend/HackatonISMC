@@ -6,10 +6,8 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/app/lib/prisma";
 import { Session } from "next-auth";
 
-const page = async () => {
-    const session = await getServerSession(authOptions) as Session;
-  
-    if (!session) redirect("/login");
+const page = () => {
+   
     return(<Config />);
 };
 
