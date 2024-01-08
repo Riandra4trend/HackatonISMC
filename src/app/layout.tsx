@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-const inter = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
+import { Lato} from "next/font/google";
+const inter = Lato({ subsets: ["latin"], weight: ["400", "700"] });
 import ToasterContext from "./context/ToasterContext";
 // import "@uploadthing/react/styles.css";
 import "./globals.css";
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-[#EDF2F7] fixed top-0 left-0 w-screen h-screen`}>
+      <body className={`${inter.className} bg-[#F7F7F7] fixed top-0 left-0 w-screen h-screen`}>
       <ToasterContext />
         <div>{children}</div>
       </body>
