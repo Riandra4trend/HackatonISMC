@@ -1,9 +1,24 @@
+// pages/index.tsx
 
+import { useState } from 'react';
 
+const Config = () => {
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
-const Dashboard = () => {
+  const handleEdit = () => {
+    setIsEdit(!isEdit);
+  };
+
   return (
-      <p>Hello world</p>
-  )}
-  
-  export default Dashboard
+    <div>
+      {isEdit ? 
+      <div>
+
+      </div>
+      : 'Hello, Hell!'}
+      <button onClick={handleEdit}>Toggle Text</button>
+    </div>
+  );
+};
+
+export default Config;
