@@ -133,21 +133,21 @@ const fleets = [
     },
 ];
 
-  const applyFiltersAndSort = (
-    // data: JenisPakaian[]
-    ) => {
-    let filteredData = fleets;
+  // const applyFiltersAndSort = (
+  //   // data: JenisPakaian[]
+  //   ) => {
+  //   let filteredData = fleets;
     
-    if (searchKeyword !== "") {
-      filteredData = filteredData.filter((item) =>
-        item.name.toLowerCase().includes(searchKeyword.toLowerCase())
-      );
-    }
-    return filteredData;
-  };
+  //   if (searchKeyword !== "") {
+  //     filteredData = filteredData.filter((item) =>
+  //       item.name.toLowerCase().includes(searchKeyword.toLowerCase())
+  //     );
+  //   }
+  //   return filteredData;
+  // };
 
-  Menampilkan data sudah jalan atau belum
-  const filteredAndSortedData = applyFiltersAndSort(clothes);
+  // Menampilkan data sudah jalan atau belum
+  // const filteredAndSortedData = applyFiltersAndSort(clothes);
 const ReportBulanan = () => {
     const [selectedMonth, setSelectedMonth] = useState("");
     const [selectedYear, setSelectedYear] = useState("");

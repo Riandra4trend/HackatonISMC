@@ -43,6 +43,12 @@ const Config = () => {
   const handleEdit = () => {
     setIsEdit(!isEdit);
   };
+  const handleCancel = () => {
+    setIsEdit(!isEdit);
+  }
+  const handleSave = () => {
+    setIsEdit(!isEdit);
+  }
   
   // const applyFiltersAndSort = (data :transactions) => {
   //   let filteredData = data;
@@ -68,12 +74,8 @@ const Config = () => {
   return (
     <div>
       {isEdit ? 
-      <div>
-
-      </div>
-      : 
-      <div className="w-full h-full bg-[#F7F7F7] flex flex-col p-[24px] gap-4">
-            <div className="w-full h-20 bg-white rounded-[16px] text-black flex flex-row px-5 justify-between items-center">
+      <div className='w-full h-full bg-[#F7F7F7] flex flex-col p-[24px] gap-4'>
+        <div className="w-full h-20 bg-white rounded-[16px] text-black flex flex-row px-5 justify-between items-center">
                 <div>
                 <h1 className="font-bold my-auto text-2xl p-2">
                     Configuration
@@ -96,19 +98,82 @@ const Config = () => {
                   // onChange={handleSearch}
                 />
               </div>
-              <div className='flex'>
-
-              <button className="w-[140px] h-9  rounded-full border border-black justify-center text-black text-base font-semibold font-['Lato'] leading-[44px]" onClick={handleEdit}>
-                <h1 className='mb-4 m-auto'> Edit Config</h1>
-              </button>
+              <div className='flex flex-row gap-4'>
+                <button className="w-[140px] h-9  rounded-full border border-black justify-center text-black text-base font-semibold font-['Lato'] leading-[44px]" onClick={handleEdit}>
+                  Edit Config
+                </button>
+                <button className="w-[140px] h-9  rounded-full border border-red-700 justify-center text-red-700 text-base font-semibold font-['Lato'] leading-[44px]" onClick={handleCancel}>
+                  Cancel
+                </button>
+                <button className="w-[140px] h-9  rounded-full border border-[#70CC40] justify-center text-[#70CC40] text-base font-semibold font-['Lato'] leading-[44px]" onClick={handleSave}>
+                  Save
+                </button>
+              </div>
+              <div className='w-full bg-white rounded-[16px] flex flex-row'>
+                <div className='flex flex-col gap-5'>
+                  <h1>Total Front</h1>
+                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
+                  <h1>Total Front</h1>
+                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
+                  <h1>Total Front</h1>
+                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
+                  <h1>Total Front</h1>
+                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
+                  <h1>Total Front</h1>
+                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
+                </div>
+                <div className='flex flex-col gap-5'>
+                <h1>Total Front</h1>
+                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
+                  <h1>Total Front</h1>
+                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
+                  <h1>Total Front</h1>
+                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
+                  <h1>Total Front</h1>
+                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
+                  <h1>Total Front</h1>
+                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
+                </div>
+              </div>
+            </div>
+      </div>
+      : 
+      <div className="w-full h-full bg-[#F7F7F7] flex flex-col p-[24px] gap-4">
+            <div className="w-full h-20 bg-white rounded-[16px] text-black flex flex-row px-5 justify-between items-center">
+                <div>
+                <h1 className="font-bold my-auto text-2xl p-2">
+                    Configuration
+                </h1>
+                <p className="text-slate-500 text-xs font-normal font-['Inter'] px-2 pb-2">Configuration Overview</p>
+                </div>
+                <div className="p-[7px] bg-gray-200 cursor-pointer rounded-full">
+                <FaBell className="text-gray-500"></FaBell>
+                </div>
+            </div>
+            <div className=' flex flex-col gap-9 rounded-[20px] p-7 bg-white'>
+            <div className="bg-slate-200 py-[13px] w-[600px] p-6 rounded-full border flex items-center">
+              <div className="items-center flex ">
+                  <IoIosSearch className="w-[24px] h-[24px] fill-current text-[#818181]" />
+                </div>
+                <input
+                  type="text"
+                  className=" p-1 text-[#818181] text-sm font-normal ml-3 bg-transparent outline-none"
+                  placeholder="Search Fleet"
+                  // onChange={handleSearch}
+                />
+              </div>
+              <div>
+                <button className="w-[140px] h-9  rounded-full border border-black justify-center text-black text-base font-semibold font-['Lato'] leading-[44px]" onClick={handleEdit}>
+                  <h1 className='mb-4 m-auto'>Edit Config</h1>
+                </button>
               </div>
               
               
             </div>
 
         <div className='w-full flex flex-col justify-between'>
-          <table className="w-full mt-4 rounded-[16px] overflow-hidden bg-[#F3F3F3]">
-            <thead className="w-full mt-4 rounded-[16px] overflow-hidden bg-[#F3F3F3]">
+          <table className="w-full mt-4 rounded-[16px] overflow-hidden bg-white">
+            <thead className="w-full mt-4 rounded-[16px] overflow-hidden bg-white">
               <tr>
                 <th className="text-center py-4 px-5">Total Front</th>
                 <th className="text-center py-4 px-5">Target Profit</th>
