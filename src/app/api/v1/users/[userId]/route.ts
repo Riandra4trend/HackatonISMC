@@ -12,14 +12,14 @@ export async function PATCH(
   }
 
   const {
-    username,
     email,
+    username,
     password,
   } = await req.json();
 
   try {
     const user = await prisma.user.findUnique({
-      where: { id: userId }, // Perubahan: Ubah ke user_id
+      where: { id: userId },
     });
 
     if (!user) {
@@ -27,7 +27,7 @@ export async function PATCH(
     }
 
     await prisma.user.update({
-      where: { id: userId}, // Perubahan: Ubah ke user_id
+      where: { id: userId },
       data: {
         email: email,
         username: username,
@@ -44,4 +44,3 @@ export async function PATCH(
     return NextResponse.json({ error: "Error updating user" }, { status: 500 });
   }
 }
-
