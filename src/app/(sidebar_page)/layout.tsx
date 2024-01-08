@@ -1,9 +1,9 @@
 import Sidebar from "../../components/Sidebar";
-import Navbar from "@/components/Navbar";
-// import Provider from "@/components/Provider";
-import NavbarFetcher from "@/components/NavbarFetcher";
-// import SidebarFetcher from "@/components/SidebarFetcher";
-// import { Session } from "next-auth";
+import Provider from "@/components/Provider";
+import SidebarFetcher from "@/components/SidebarFetcher";
+import { Session } from "next-auth";
+// import Navbar from "@/components/Navbar";
+// import NavbarFetcher from "@/components/NavbarFetcher";
 // import { Notification } from "@prisma/client";
 
 export default function RootLayout({
@@ -12,11 +12,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-row max-h-screen w-full h-full">
-             
-        <Sidebar/>
-        {children}
-      
-    </div>
+    <>
+      <Provider>
+        <SidebarFetcher>
+          {({ user }) => (
+            <Sidebar
+              user={user as Session["user"]}
+            />
+          )}
+        </SidebarFetcher>
+        
+        <div className="lg:pl-[280px]">{children}</div>
+      </Provider>
+    </>
   );
 }

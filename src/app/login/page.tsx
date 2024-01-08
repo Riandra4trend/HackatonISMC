@@ -1,16 +1,14 @@
 import Login from "./Login";
-// import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-// import { Session } from "next-auth";
-// import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { Session } from "next-auth";
+import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 
-// const page = async () => {
-//   const session = await getServerSession(authOptions) as Session;
+const page = async () => {
+  const session = await getServerSession(authOptions) as Session;
 
-//   if (session) return redirect("/dashboard");
-//   return <Login />;
-// };
-
-const page = () => <Login />;
+  if (session) return redirect("/dashboard");
+  return <Login />;
+};
 
 export default page;

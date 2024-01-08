@@ -2,8 +2,8 @@
 import Image from "next/image";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { useState } from "react";
-// import { signIn } from "next-auth/react";
-// import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
@@ -12,27 +12,27 @@ export default function Login() {
 
   const router = useRouter();
 
-//   const handleLogin = async () => {
-//     try {
-//       const res = await signIn("credentials", {
-//         redirect: false,
-//         email: data.email,
-//         password: data.password,
-//         callbackUrl: "/dashboard",
-//       });
+  const handleLogin = async () => {
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+        callbackUrl: "/dashboard",
+      });
 
-//       if (res?.error) {
-//         toast.error(res.error);
-//         throw new Error(res.error);
-//       } else {
-//         router.push("/dashboard");
-//         router.refresh();
-//       }
-//     } catch (error) {
-//       toast.error("Internal Server Error");
-//       console.error(error);
-//     }
-//   };
+      if (res?.error) {
+        toast.error(res.error);
+        throw new Error(res.error);
+      } else {
+        router.push("/dashboard");
+        router.refresh();
+      }
+    } catch (error) {
+      toast.error("Internal Server Error");
+      console.error(error);
+    }
+  };
 
   return (
     <div className="flex min-h-screen w-full bg-gradient-to-l from-cyan-100 via-slate-400 to-sky-100 overflow-hidden fixed top-0 left-0 bg-cover" style={{backgroundImage: `url('/landing/tone1.svg')`}}>
@@ -93,7 +93,7 @@ export default function Login() {
 
           <button
             className="block w-full mt-[39.72px] pt-[11.28px] pb-[12.72px] px-[28px] text-center bg-indigo-600 hover:bg-indigo-800 rounded-lg text-white text-xl font-bold"
-            // onClick={() => handleLogin()}
+            onClick={() => handleLogin()}
           >
             Sign in
           </button>
