@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Pagination from "../../../components/Pagination/Pagination";
 import { FaBell } from 'react-icons/fa';
 import { IoIosSearch } from "react-icons/io";
+import { Lato } from "next/font/google";
+
 
 interface transactions{
   nama : string,
@@ -72,7 +74,7 @@ const Config = () => {
   const endIndex = startIndex + 6;
   const paginatedData = filteredAndSortedData.slice(startIndex, endIndex);
   return (
-    <div>
+    <div className='w-full h-full bg-white'>
       {isEdit ? 
       <div className='w-full h-full bg-[#F7F7F7] flex flex-col p-[24px] gap-4'>
         <div className="w-full h-20 bg-white rounded-[16px] text-black flex flex-row px-5 justify-between items-center">
@@ -86,7 +88,7 @@ const Config = () => {
                 <FaBell className="text-gray-500"></FaBell>
                 </div>
             </div>
-            <div className='w-[1000px] h-[176px] flex flex-col gap-9 rounded-[20px] p-7 bg-white'>
+            <div className='flex flex-col gap-9 rounded-[20px] p-7 bg-white'>
             <div className="bg-slate-200 py-[13px] w-[600px] p-6 rounded-full border flex items-center">
               <div className="items-center flex ">
                   <IoIosSearch className="w-[24px] h-[24px] fill-current text-[#818181]" />
@@ -99,40 +101,62 @@ const Config = () => {
                 />
               </div>
               <div className='flex flex-row gap-4'>
-                <button className="w-[140px] h-9  rounded-full border border-black justify-center text-black text-base font-semibold font-['Lato'] leading-[44px]" onClick={handleEdit}>
-                  Edit Config
-                </button>
-                <button className="w-[140px] h-9  rounded-full border border-red-700 justify-center text-red-700 text-base font-semibold font-['Lato'] leading-[44px]" onClick={handleCancel}>
-                  Cancel
-                </button>
-                <button className="w-[140px] h-9  rounded-full border border-[#70CC40] justify-center text-[#70CC40] text-base font-semibold font-['Lato'] leading-[44px]" onClick={handleSave}>
-                  Save
-                </button>
+              <div className="w-[141px] h-9 relative rounded-[20px] border border-black cursor-pointer " onClick={handleEdit}>
+                <div className="left-[31px] top-[-4px] absolute text-center text-gray-900 text-base font-semibold font-['Lato'] leading-[44px]" >Edit Config</div>
               </div>
-              <div className='w-full bg-white rounded-[16px] flex flex-row'>
+              <div className="w-[141px] h-9 relative rounded-[20px] border border-red-600 cursor-pointer" onClick={handleCancel}>
+                  <div className="left-[46px] top-[-4px] absolute text-center text-red-600 text-base font-semibold font-['Lato'] leading-[44px]" >Cancel</div>
+              </div>
+              <div className="w-[141px] h-9 relative rounded-[20px] border border-lime-500 cursor-pointer" onClick={handleSave}>
+                <div className="left-[53px] top-[-4px] absolute text-center text-lime-500 text-base font-semibold font-['Lato'] leading-[44px]">Save</div>
+              </div>
+              </div>
+            </div>
+            <div >
+              <div className='p-4 w-full bg-white rounded-[16px] flex flex-row gap-5'>
                 <div className='flex flex-col gap-5'>
-                  <h1>Total Front</h1>
-                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
-                  <h1>Total Front</h1>
-                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
-                  <h1>Total Front</h1>
-                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
-                  <h1>Total Front</h1>
-                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
-                  <h1>Total Front</h1>
-                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
+                  <div className='flex flex-col gap-2'>
+                    <h1>Total Front</h1>
+                    <input type="text" placeholder='    Total Front' className='border border-black rounded-full' />
+                  </div>
+                  <div className='flex flex-col gap-2'>
+                    <h1>Total Front</h1>
+                    <input type="text" placeholder='    Total Front' className='border border-black rounded-full' />
+                  </div>
+                  <div className='flex flex-col gap-2'>
+                    <h1>Total Front</h1>
+                    <input type="text" placeholder='    Total Front' className='border border-black rounded-full' />
+                  </div>
+                  <div className='flex flex-col gap-2'>
+                    <h1>Total Front</h1>
+                    <input type="text" placeholder='    Total Front' className='border border-black rounded-full' />
+                  </div>
+                  <div className='flex flex-col gap-2'>
+                    <h1>Total Front</h1>
+                    <input type="text" placeholder='    Total Front' className='border border-black rounded-full' />
+                  </div>
                 </div>
                 <div className='flex flex-col gap-5'>
-                <h1>Total Front</h1>
-                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
-                  <h1>Total Front</h1>
-                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
-                  <h1>Total Front</h1>
-                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
-                  <h1>Total Front</h1>
-                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
-                  <h1>Total Front</h1>
-                  <input type="text" placeholder='Total Front' className='border-black border-b-2' />
+                  <div className='flex flex-col gap-2'>
+                    <h1>Total Front</h1>
+                    <input type="text" placeholder='    Total Front' className='border border-black rounded-full' />
+                  </div>
+                  <div className='flex flex-col gap-2'>
+                    <h1>Total Front</h1>
+                    <input type="text" placeholder='    Total Front' className='border border-black rounded-full' />
+                  </div>
+                  <div className='flex flex-col gap-2'>
+                    <h1>Total Front</h1>
+                    <input type="text" placeholder='    Total Front' className='border border-black rounded-full' />
+                  </div>
+                  <div className='flex flex-col gap-2'>
+                    <h1>Total Front</h1>
+                    <input type="text" placeholder='    Total Front' className='border border-black rounded-full' />
+                  </div>
+                  <div className='flex flex-col gap-2'>
+                    <h1>Total Front</h1>
+                    <input type="text" placeholder='    Total Front' className='border border-black rounded-full' />
+                  </div>
                 </div>
               </div>
             </div>
@@ -163,9 +187,9 @@ const Config = () => {
                 />
               </div>
               <div>
-                <button className="w-[140px] h-9  rounded-full border border-black justify-center text-black text-base font-semibold font-['Lato'] leading-[44px]" onClick={handleEdit}>
-                  <h1 className='mb-4 m-auto'>Edit Config</h1>
-                </button>
+                <div className="w-[141px] h-9 relative rounded-[20px] border border-black cursor-pointer" onClick={handleEdit}>
+                  <div className="left-[31px] top-[-4px] absolute text-center text-gray-900 text-base font-semibold font-['Poppins'] leading-[44px]" >Edit Config</div>
+                </div>
               </div>
               
               
