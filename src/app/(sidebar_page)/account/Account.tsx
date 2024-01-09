@@ -34,8 +34,8 @@ export default function Vehicle() {
 
                 </FaUser>
                 <p className="my-auto font-medium text-lg text-gray-500">{user.isManager? "Manager" : "Operational"}</p>
-                <div className="w-fit px-2 py-1 bg-gray-600 hover:bg-gray-400 max-h-[20px] rounded-[12px] px-2 text-[12px] flex flex-row items-center justify-center cursor-pointer">
-                  Logout
+                <div className="text-white w-fit px-2 py-1 bg-red-600 hover:bg-red-400 max-h-[20px] rounded-[12px] px-2 text-[12px] flex flex-row items-center justify-center cursor-pointer">
+                  Delete Account
                 </div>
               </div>
               <div className="flex-row items-center text-black w-full h-full max-w-[600px] justify-center gap-2">

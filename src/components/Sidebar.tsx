@@ -59,42 +59,44 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
 
   return (
     <div className="z-[99999] hidden lg:flex flex-col bg-white w-64 relative min-h-screen py-3">
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full justify-between">
+        <div>
+
         <div className="flex justify-center">
           <Image src="/logo.svg" alt="logo" width={100} height={100} />
         </div>
         <div className="mx-[25px] mt-[42px] relative">
         {user?.role === "MANAGER" ? (
           SidebarDataManager.map((item, index) => (
-              <a href={item.path} key={index}>
+            <a href={item.path} key={index}>
                 <div
                   className={`flex items-center px-7 py-[15px] my-[5px] rounded-r-full transition hover:bg-[#A2CC82] relative ${
                     (item.path === pathname || `${item.path}Bulanan` === pathname || `${item.path}Analysis` === pathname) ? "bg-[#A2CC82]" : "bg-white"
                   }`}
-                >
+                  >
                   {item.path === pathname && (
                     <div className="bg-black px-2 h-full absolute -ml-7"></div>
-                  )}
+                    )}
 
                   <div className={`flex items-center w-6 aspect-square justify-center`}>
                     <item.icon
                       className={`text-base ${
                         (item.path === pathname || `${item.path}Bulanan` === pathname || `${item.path}Analysis` === pathname) ? "text-black" : "text-[#818181]"
                       }`}
-                    />
+                      />
                   </div>
                   <div
                     className={`ml-5 font-extrabold text-sm font-['Open Sans'] ${
                       (item.path === pathname || `${item.path}Bulanan` === pathname || `${item.path}Analysis` === pathname) ? "text-black" : "text-[#818181]"
                     }`}
-                  >
+                    >
                     {item.title}
                   </div>
                   {item.title === "Report" && (
                     <RiArrowDownSLine
-                      className={`ml-7 w-8 ${item.path === pathname ? "text-black" : "text-[#818181]"}`}
+                    className={`ml-7 w-8 ${item.path === pathname ? "text-black" : "text-[#818181]"}`}
                     />
-                  )}
+                    )}
                 </div>
                 {item.path === "/report" && pathname === "/report" && (
                   <>
@@ -102,7 +104,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                       <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
                         <div
                           className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
-                        >
+                          >
                           Report Bulanan
                         </div>
                       </div>
@@ -111,7 +113,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                       <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
                         <div
                           className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
-                        >
+                          >
                           Report Analysis
                         </div>
                       </div>
@@ -124,7 +126,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                       <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
                         <div
                           className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#A2CC82]"
-                        >
+                          >
                           Report Bulanan
                         </div>
                       </div>
@@ -133,7 +135,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                       <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
                         <div
                           className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
-                        >
+                          >
                           Report Analysis
                         </div>
                       </div>
@@ -146,7 +148,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                       <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
                         <div
                           className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
-                        >
+                          >
                           Report Bulanan
                         </div>
                       </div>
@@ -155,7 +157,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                       <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
                         <div
                           className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#A2CC82]"
-                        >
+                          >
                           Report Analysis
                         </div>
                       </div>
@@ -164,36 +166,36 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                 )}
               </a>
             ))) 
-          : SidebarDataOperasional.map((item, index) => (
+            : SidebarDataOperasional.map((item, index) => (
               <a href={item.path} key={index}>
                 <div
                   className={`flex items-center px-7 py-[15px] my-[5px] rounded-r-full transition hover:bg-[#A2CC82] relative ${
                     (item.path === pathname || `${item.path}Bulanan` === pathname || `${item.path}Analysis` === pathname) ? "bg-[#A2CC82]" : "bg-white"
                   }`}
-                >
+                  >
                   {item.path === pathname && (
                     <div className="bg-black px-2 h-full absolute -ml-7"></div>
-                  )}
+                    )}
 
                   <div className={`flex items-center w-6 aspect-square justify-center`}>
                     <item.icon
                       className={`text-base ${
                         (item.path === pathname || `${item.path}Bulanan` === pathname || `${item.path}Analysis` === pathname) ? "text-black" : "text-[#818181]"
                       }`}
-                    />
+                      />
                   </div>
                   <div
                     className={`ml-5 font-extrabold text-sm font-['Open Sans'] ${
                       (item.path === pathname || `${item.path}Bulanan` === pathname || `${item.path}Analysis` === pathname) ? "text-black" : "text-[#818181]"
                     }`}
-                  >
+                    >
                     {item.title}
                   </div>
                   {item.title === "Report" && (
                     <RiArrowDownSLine
-                      className={`ml-7 w-8 ${item.path === pathname ? "text-black" : "text-[#818181]"}`}
+                    className={`ml-7 w-8 ${item.path === pathname ? "text-black" : "text-[#818181]"}`}
                     />
-                  )}
+                    )}
                 </div>
                 {item.path === "/report" && pathname === "/report" && (
                   <>
@@ -201,7 +203,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                       <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
                         <div
                           className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
-                        >
+                          >
                           Report Bulanan
                         </div>
                       </div>
@@ -210,7 +212,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                       <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
                         <div
                           className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
-                        >
+                          >
                           Report Analysis
                         </div>
                       </div>
@@ -223,7 +225,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                       <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
                         <div
                           className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#A2CC82]"
-                        >
+                          >
                           Report Bulanan
                         </div>
                       </div>
@@ -232,7 +234,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                       <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
                         <div
                           className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
-                        >
+                          >
                           Report Analysis
                         </div>
                       </div>
@@ -245,7 +247,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                       <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
                         <div
                           className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#818181]"
-                        >
+                          >
                           Report Bulanan
                         </div>
                       </div>
@@ -254,7 +256,7 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
                       <div className="flex items-center px-7 py-[15px] my-[5px] rounded-r-full">
                         <div
                           className="ml-5 font-extrabold text-sm font-['Open Sans'] text-[#A2CC82]"
-                        >
+                          >
                           Report Analysis
                         </div>
                       </div>
@@ -264,17 +266,20 @@ const Sidebar = ({ user }: { user: Session["user"] }) => {
               </a>
             ))}
       </div>
-
-      <div className="border-b border-[#818181] w-64 mb-5 relative"></div>
-      <div className="relative flex justify-center items-center">
-        <div
-          className="justify-center gap-2 items-center flex w-fit px-7 py-[10px] rounded-full transition bg-[#818181] hover:bg-zinc-700 cursor-pointer"
-          onClick={() => signOut()}
-        >
-          <BiLogOut className="text-xl text-white" />
-          <div className="text-white font-bold curs">Logout</div>
-        </div>
       </div>
+      
+      <div>
+        <div className="border-b border-[#818181] w-64 mb-5 relative"></div>
+        <div className="relative flex justify-center items-center">
+          <div
+            className="justify-center gap-2 items-center flex w-fit px-7 py-[10px] rounded-full transition bg-[#818181] hover:bg-zinc-700 cursor-pointer"
+            onClick={() => signOut()}
+            >
+            <BiLogOut className="text-xl text-white" />
+            <div className="text-white font-bold curs">Logout</div>
+          </div>
+        </div>
+        </div>
       </div>
     </div>
   );

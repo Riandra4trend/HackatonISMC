@@ -3,3 +3,31 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+::-webkit-scrollbar {
+    padding: 0 10px;
+    width: 8px;
+}
+#style-2::-webkit-scrollbar {
+    padding: 0 10px;
+    width: 0px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: #e7e7e7;
+    border: 1px solid #cacaca;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+  border: 3px solid transparent;
+   background-clip: content-box;
+    background-color: #787878;
+}
