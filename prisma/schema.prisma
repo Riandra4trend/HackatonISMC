@@ -7,34 +7,85 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id       String @id @default(uuid())
+model User {
+  id       String @id @default(uuid()) @db.Uuid
   email    String @unique @db.VarChar(256)
   username String @unique @db.VarChar(256)
   password String @db.VarChar(256)
   role     Role   @default(OPERATIONAL)
 }
 
-model Loader {
-  id           String @id @default(uuid())
-  productivity Float? @default(0) @db.Real
-  assign String? @default("-") @db.VarChar(256)
-  working_hours Int? @default(0) @db.Integer
-  operator String? @default("-") @db.VarChar(256)
-  is_ready Boolean @default(true)
-}
-
-model Hauler {
-  id           String @id @default(uuid())
-  productivity Float? @default(0) @db.Real
-  assign String? @default("-") @db.VarChar(256)
-  distance Int? @default(0) @db.Integer
-  operator String? @default("-") @db.VarChar(256)
-  is_ready Boolean @default(true)
-
-}
-
 enum Role {
   OPERATIONAL
   MANAGER
+}
+model Loader {
+  id           String  @id @default(uuid()) @db.Uuid
+  productivity Float?  @default(0) @db.Real
+  assign       String? @default("-") @db.VarChar(256)
+  workingHours Int?    @default(0) @db.Integer
+  operator     String? @default("-") @db.VarChar(256)
+  isReady      Boolean @default(true)
+}
+
+model Hauler {
+  id           String  @id @default(uuid()) @db.Uuid
+  assign       String? @default("-") @db.VarChar(256)
+  distance     Int?    @default(0) @db.Integer
+  operator     String? @default("-") @db.VarChar(256)
+  isReady      Boolean @default(true)
+  fleet        Fleet?  @relation(fields: [idFleet], references: [id])
+  idFleet      String? @db.VarChar(256)
+}
+
+model Prodty {
+  id      String @id @default(uuid()) @db.Uuid
+  prodty  Float? @db.Real
+  fleet   Fleet  @relation(fields: [fleetId], references: [id])
+  fleetId String
+}
+
+model Fleet {
+  id            String          @id @default(uuid()) @db.Uuid
+  name          String          @db.VarChar(256)
+  prodtyLoader  Float?          @db.Real
+  rate          Float?          @db.Real
+  haulers       Hauler[]
+  prodtys       Prodty[]
+  FleetProblems FleetProblems[]
+}
+
+model Problem {
+  id             String          @id @default(uuid()) @db.Uuid
+  name           String          @db.VarChar(256)
+  idfleetProblem String?         @db.VarChar(256)
+  timestamp      DateTime // Untuk menyimpan waktu terjadinya problem
+  FleetProblems  FleetProblems[]
+}
+
+model FleetProblems {
+  fleetId   String
+  fleet     Fleet    @relation(fields: [fleetId], references: [id])
+  problemId String
+  problem   Problem  @relation(fields: [problemId], references: [id])
+  longTime  Int      @default(0) @db.Integer
+  createdAt DateTime @default(now()) @db.Timestamp
+
+  @@id([fleetId, problemId])
+}
+
+model Configuration {
+  id             String @id @default(uuid()) @db.Uuid
+  jumlahFront    Int    @db.Integer
+  targetProfit   Float  @db.Real
+  oocLoader      Float  @db.Real
+  oocHauler      Float  @db.Real
+  rate           Float  @db.Real
+  ohda           Float  @db.Real
+  fuelPrice      Float  @db.Real
+  batasEmissi    Float  @db.Real
+  targetProduksi Float  @db.Real
+  rfuLoader      Float  @db.Real
+  rfuHauler      Float  @db.Real
+  createdAt      DateTime @default(now()) @db.Timestamp
 }
