@@ -1,133 +1,4 @@
-// const months = [
-//   {
-//     value: "01",
-//     label: "Jan",
-//   },
-//   {
-//     value: "02",
-//     label: "Feb",
-//   },
-//   {
-//     value: "03",
-//     label: "Mar",
-//   },
-//   {
-//     value: "04",
-//     label: "Apr",
-//   },
-//   {
-//     value: "05",
-//     label: "May",
-//   },
-//   {
-//     value: "06",
-//     label: "Jun",
-//   },
-//   {
-//     value: "07",
-//     label: "Jul",
-//   },
-//   {
-//     value: "08",
-//     label: "Aug",
-//   },
-//   {
-//     value: "09",
-//     label: "Sep",
-//   },
-//   {
-//     value: "10",
-//     label: "Oct",
-//   },
-//   {
-//     value: "11",
-//     label: "Nov",
-//   },
-//   {
-//     value: "12",
-//     label: "Dec",
-//   },
-// ];
 
-// const years = [
-//   {
-//     value: "2025",
-//     label: "2025",
-//   },
-//   {
-//     value: "2024",
-//     label: "2024",
-//   },
-//   {
-//     value: "2023",
-//     label: "2023",
-//   },
-//   {
-//     value: "2022",
-//     label: "2022",
-//   },
-//   {
-//     value: "2021",
-//     label: "2021",
-//   },
-//   {
-//     value: "2020",
-//     label: "2020",
-//   },
-//   {
-//     value: "2019",
-//     label: "2019",
-//   },
-//   {
-//     value: "2018",
-//     label: "2018",
-//   },
-// ];
-
-// const fleets = [
-//     {
-//         nama : "Fleet 1",
-//         problem : "jalan berlubang",
-//         carbonEmision : "0.5 ton",
-//         matchFactor : 0.8,
-//         goals : "Carbon emission under 0,5 Ton, Only use 2 haulers, etc., Carbon emission under 0,5 Ton, Only use 2 haulers, etc.Carbon emission under 0,5 Ton, Only use 2 haulers, etc.Carbon emission under 0,5 Ton, Only use 2 haulers, etc."
-//     },
-//     {
-//         nama : "Fleet 2",
-//         problem : "debu tebal",
-//         carbonEmision : "0.8 ton",
-//         matchFactor : 0.9,
-//         goals : "Carbon emission under 0,5 Ton, Only use 2 haulers, etc."
-//     },
-//     {
-//         nama : "Fleet 3",
-//         problem : "jalan licin",
-//         carbonEmision : "0.9 ton",
-//         matchFactor : 1.01,
-//         goals : "Carbon emission under 0,5 Ton, Only use 2 haulers, etc."
-//     },
-//     {
-//         nama : "Fleet 1",
-//         problem : "jalan berlubang",
-//         carbonEmision : "0.5 ton",
-//         matchFactor : 0.8,
-//         goals : "Carbon emission under 0,5 Ton, Only use 2 haulers, etc."
-//     },
-//     {
-//         nama : "Fleet 2",
-//         problem : "debu tebal",
-//         carbonEmision : "0.8 ton",
-//         matchFactor : 0.9,
-//         goals : "Carbon emission under 0,5 Ton, Only use 2 haulers, etc."
-//     },
-//     {
-//         nama : "Fleet 3",
-//         problem : "jalan licin",
-//         carbonEmision : "0.9 ton",
-//         matchFactor : 1.01,
-//         goals : "Carbon emission under 0,5 Ton, Only use 2 haulers, etc."
-//     },
-// ];
 "use client";
 import { FaBell } from "react-icons/fa";
 import { useState } from "react";
@@ -150,6 +21,91 @@ import { Fleet } from "@prisma/client";
 
   // Menampilkan data sudah jalan atau belum
   // const filteredAndSortedData = applyFiltersAndSort(clothes);
+  const months = [
+  {
+    value: "01",
+    label: "Jan",
+  },
+  {
+    value: "02",
+    label: "Feb",
+  },
+  {
+    value: "03",
+    label: "Mar",
+  },
+  {
+    value: "04",
+    label: "Apr",
+  },
+  {
+    value: "05",
+    label: "May",
+  },
+  {
+    value: "06",
+    label: "Jun",
+  },
+  {
+    value: "07",
+    label: "Jul",
+  },
+  {
+    value: "08",
+    label: "Aug",
+  },
+  {
+    value: "09",
+    label: "Sep",
+  },
+  {
+    value: "10",
+    label: "Oct",
+  },
+  {
+    value: "11",
+    label: "Nov",
+  },
+  {
+    value: "12",
+    label: "Dec",
+  },
+];
+
+const years = [
+  {
+    value: "2025",
+    label: "2025",
+  },
+  {
+    value: "2024",
+    label: "2024",
+  },
+  {
+    value: "2023",
+    label: "2023",
+  },
+  {
+    value: "2022",
+    label: "2022",
+  },
+  {
+    value: "2021",
+    label: "2021",
+  },
+  {
+    value: "2020",
+    label: "2020",
+  },
+  {
+    value: "2019",
+    label: "2019",
+  },
+  {
+    value: "2018",
+    label: "2018",
+  },
+];
 const ReportBulanan = ({ fleets }: { fleets: Fleet[] }) => {
     const [selectedMonth, setSelectedMonth] = useState("");
     const [selectedYear, setSelectedYear] = useState("");
@@ -166,7 +122,9 @@ const ReportBulanan = ({ fleets }: { fleets: Fleet[] }) => {
     const handleYearClick = (value: any) => {
       setSelectedYear(value);
     };
-  
+    
+
+
     return (
       <div className="w-full bg-[#F7F7F7] flex flex-col p-[24px] gap-4">
         <div className="w-full h-20 bg-white rounded-[16px] text-black flex flex-row px-5 justify-between items-center">

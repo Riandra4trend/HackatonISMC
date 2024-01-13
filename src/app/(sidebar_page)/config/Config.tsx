@@ -101,28 +101,28 @@ const Config = ({config} : {config: Configuration[]}) => {
     }
   };
 
-  const handleDelete = async (clotheId: string) => {
-    try {
-      // Adjust the API endpoint and server-side logic based on your requirements
-      const response = await fetch(
-        process.env.NEXT_PUBLIC_WEB_URL + `/api/v1/JenisPakaian/${clotheId}`,
-        {
-          method: "DELETE",
-        }
-      );
+  // const handleDelete = async (clotheId: string) => {
+  //   try {
+  //     // Adjust the API endpoint and server-side logic based on your requirements
+  //     const response = await fetch(
+  //       process.env.NEXT_PUBLIC_WEB_URL + `/api/v1/JenisPakaian/${clotheId}`,
+  //       {
+  //         method: "DELETE",
+  //       }
+  //     );
 
-      if (response?.ok) {
-        toast.success("Successfully delete item.");
-        router.refresh();
-      } else {
-        toast.error("Error deleting item.");
-        throw new Error("Error deleting item.");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Error deleting item");
-    }
-  };
+  //     if (response?.ok) {
+  //       toast.success("Successfully delete item.");
+  //       router.refresh();
+  //     } else {
+  //       toast.error("Error deleting item.");
+  //       throw new Error("Error deleting item.");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error("Error deleting item");
+  //   }
+  // };
 
   const router = useRouter();
   

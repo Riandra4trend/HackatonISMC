@@ -17,6 +17,31 @@ export async function GET(req: NextRequest) {
         );
       }
 
+      try {
+        const fleets = await prisma.fleet.findMany({
+          include: {
+            FleetProblems: {
+              include: {
+                problem: true,
+              },
+            },
+            prodtys: true,
+            haulers: true,
+          },
+        });
+
+        return NextResponse.json(
+            { message: "User successfully created", fleets: fleets},
+            { status: 200 }
+          );
+    
+        // Use reduce to group fleets by the total number of problems
+    
+        // Display fleets grouped by the total number of problems
+      } catch (error) {
+        console.error('Error:', error);
+      }
+
   
 }
 
