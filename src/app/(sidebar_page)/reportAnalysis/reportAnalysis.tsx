@@ -4,7 +4,10 @@ import { FaBell } from 'react-icons/fa';
 import { BsMinecartLoaded } from 'react-icons/bs';
 import { FaDollarSign } from 'react-icons/fa';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-
+import { useEffect } from "react";
+import { useState } from "react";
+import { Fleet } from "@prisma/client";
+import { Configuration } from '@prisma/client';
 
 const grafik = [
     {
@@ -56,6 +59,56 @@ const grafik = [
     },
 ]
 const reportAnalysis = () => {
+    
+    const [fleets, setFleets] = useState<Fleet[]>([]);
+
+    
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            process.env.NEXT_PUBLIC_WEB_URL + '/api/v1/fleet',
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          ); // Replace with your actual API endpoint
+          const data = await response.json();
+          console.log("fetched data :", data);
+          setFleets(data.fleets);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+      
+  
+      fetchData();
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch(
+              process.env.NEXT_PUBLIC_WEB_URL + '/api/v1/config',
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            ); // Replace with your actual API endpoint
+            const data = await response.json();
+            console.log("fetched data :", data);
+            setFleets(data.configuration);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        };
+        fetchData();
+      }, []);
+
     return (
         <div className="w-full bg-[#F7F7F7] flex flex-col p-[24px] gap-4">
             <div className="w-full h-20 bg-white rounded-[16px] text-black flex flex-row px-5 justify-between items-center">

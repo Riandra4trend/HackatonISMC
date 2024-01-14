@@ -20,8 +20,7 @@ export default function RootLayout({
               user={user as Session["user"]}
             />
           )}
-        </SidebarFetcher>
-        
+        </SidebarFetcher> 
         {children}
       </Provider>
     </div>

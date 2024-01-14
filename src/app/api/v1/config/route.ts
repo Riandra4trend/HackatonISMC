@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
         );
       }
 
-  const {jumlahFront,
+  const {
+    jumlahFront,
     targetProfit,
     oocLoader,
     oocHauler,
@@ -36,26 +37,57 @@ export async function POST(req: NextRequest) {
     
     await prisma.configuration.create({
         data: {
-          jumlahFront,
-          targetProfit,
-          oocLoader,
-          oocHauler,
-          rate,
-          ohda,
-          fuelPrice,
-          batasEmissi,
-          targetProduksi,
-          rfuLoader,
-          rfuHauler,
+          jumlahFront : jumlahFront,
+          targetProfit : targetProfit,
+          oocLoader: oocLoader,
+          oocHauler: oocHauler,
+          rate: rate,
+          ohda: ohda,
+          fuelPrice: fuelPrice,
+          batasEmissi: batasEmissi,
+          targetProduksi: targetProduksi,
+          rfuLoader: rfuLoader,
+          rfuHauler: rfuHauler,
         },
       });
 
     return NextResponse.json(
-      { message: "Config has been updated"},
+      { message: "Config has been created successfully"},
       { status: 201 }
     );
   } catch (error) {
     console.error("Error update config:", error);
     return NextResponse.json({ error: "Error update config" }, { status: 400 });
   }
+}
+
+export async function GET(req: NextRequest) {
+  const session = await getServerSession(authOptions) as Session;
+
+  if (!session?.user) {
+      return NextResponse.json(
+        {
+          error: "Unauthorized",
+        },
+        { status: 401 }
+      );
+    }
+
+    try {
+
+      const configuration = await prisma.configuration.findMany({})
+
+      return NextResponse.json(
+          { message: "config successfully created", config: configuration},
+          { status: 200 }
+        );
+  
+      // Use reduce to group fleets by the total number of problems
+  
+      // Display fleets grouped by the total number of problems
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
+
 }
