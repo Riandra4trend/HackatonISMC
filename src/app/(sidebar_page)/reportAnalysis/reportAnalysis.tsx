@@ -6,7 +6,6 @@ import { FaDollarSign } from 'react-icons/fa';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { useEffect } from "react";
 import { useState } from "react";
-import { Fleet } from "@prisma/client";
 import { Configuration } from '@prisma/client';
 
 const grafik = [
@@ -58,7 +57,48 @@ const grafik = [
         emisi : "300",
     },
 ]
-const reportAnalysis = () => {
+
+interface Fleet {
+    id: number;
+    name: string;
+    prodtyLoader?: number | null;
+    rate?: number | null;
+    haulers: Hauler[];
+    prodtys: Prodty[];
+    FleetProblems: FleetProblem[];
+  }
+  
+  interface Hauler {
+    id: number;
+    assign: string | null;
+    distance?: number | null;
+    operator: string | null;
+    isReady: boolean;
+    idFleet?: number | null;
+  }
+  
+  interface Prodty {
+    id: number;
+    prodty?: number | null;
+    fleetId?: number | null;
+  }
+  
+  interface FleetProblem {
+    fleetId: number;
+    problemId: number;
+    longTime: number;
+    createdAt: string;
+    fleet: Fleet;
+    problem: Problem;
+  }
+  
+  interface Problem {
+    id: number;
+    name: string;
+    timestamp: string;
+    FleetProblems: FleetProblem[];
+  }
+const reportAnalysis = ({config} : {config: Configuration[]}) => {
     
     const [fleets, setFleets] = useState<Fleet[]>([]);
 
@@ -87,6 +127,7 @@ const reportAnalysis = () => {
       fetchData();
     }, []);
 
+    
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -108,6 +149,48 @@ const reportAnalysis = () => {
         };
         fetchData();
       }, []);
+      console.log(config[0].jumlahFront)
+
+      const calculateTotalProblems = fleets.FleetProblems.reduce((total, fleet) => total + fleet.FleetProblems.length, 0); {
+        // Menggunakan reduce untuk menjumlahkan total masalah dari seluruh armada
+        
+      };
+
+      
+      const totalFleets = fleets.length;
+      const averageProblemsPerFleet = totalProblems / totalFleets;
+
+      const findFleetWithHighestProblems = (fleets: Fleet[]) => {
+        if (fleets.length === 0) return null;
+    
+        return fleets.reduce((maxFleet, currentFleet) => {
+          return currentFleet.FleetProblems.length > maxFleet.FleetProblems.length ? currentFleet : maxFleet;
+        }, fleets[0]);
+      };
+    
+      // Function to find the common problems from all fleets
+      const findCommonProblemsFromAllFleets = (fleets: Fleet[]): Problem[] => {
+        if (fleets.length === 0) return [];
+    
+        const allProblems = fleets.reduce((problems, fleet) => {
+          return problems.concat(fleet.FleetProblems.map((fleetProblem) => fleetProblem.problem));
+        }, [] as Problem[]);
+    
+        // Filter out duplicates
+        const uniqueProblems = allProblems.filter((problem, index, self) => {
+          return index === self.findIndex((p) => p.id === problem.id);
+        });
+    
+        return uniqueProblems;
+      };
+    
+      // ... (kode sebelumnya)
+    
+      // Get the fleet with the highest number of problems
+      const fleetWithHighestProblems = findFleetWithHighestProblems(fleets);
+    
+      // Get the common problems from all fleets
+      const commonProblems = findCommonProblemsFromAllFleets(fleets);
 
     return (
         <div className="w-full bg-[#F7F7F7] flex flex-col p-[24px] gap-4">
@@ -177,25 +260,20 @@ const reportAnalysis = () => {
                     <div className='flex flex-row gap-4 justify-between'>
                         <div className='py-4 px-6 w-1/3 bg-white shadow-xl rounded-[20px]'>
                             <div className="text-neutral-700 text-base font-bold font-['Inter']">Problems</div>
-                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Total <span>20</span></div>
-                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Average per fleet <span>8</span></div>
-                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Highest problems from fleet <span>4</span></div>
-                            <div className="w-[253px] text-neutral-700 text-base font-medium font-['Inter'] mt-8">Kesimpulan dari Problems</div>
+                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Total {totalProblems}</div>
+                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Average per fleet {averageProblemsPerFleet}</div>
+                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Highest problems from fleet {fleetWithHighestProblems ? fleetWithHighestProblems.name : 'N/A'} </div>
+                            <div className="w-[253px] text-neutral-700 text-base font-medium font-['Inter'] mt-8">Hal yang harus diperbaiki Terlebih dahulu : {commonProblems.map((problem) => (
+                  <div key={problem.id}>{problem.name}</div>
+                ))}</div>
                         </div>
                         <div className='py-4 px-6 w-1/3 bg-white shadow-xl rounded-[20px]'>
-                            <div className="text-neutral-700 text-base font-bold font-['Inter']">Problems</div>
-                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Total <span>20</span></div>
-                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Average per fleet <span>8</span></div>
-                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Highest problems from fleet <span>4</span></div>
-                            <div className="w-[253px] text-neutral-700 text-base font-medium font-['Inter'] mt-8">Kesimpulan dari Problems</div>
+                            <div className="text-neutral-700 text-base font-bold font-['Inter']">Match Factor</div>
+                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Above One</div>
+                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Under One </div>
+                            <div className="w-[253px] text-neutral-700 text-base font-medium font-['Inter'] mt-8">Kesimpulan dari Match Factor </div>
                         </div>
-                        <div className='py-4 px-6 w-1/3 bg-white shadow-xl rounded-[20px]'>
-                            <div className="text-neutral-700 text-base font-bold font-['Inter']">Problems</div>
-                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Total <span>20</span></div>
-                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Average per fleet <span>8</span></div>
-                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Highest problems from fleet <span>4</span></div>
-                            <div className="w-[253px] text-neutral-700 text-base font-medium font-['Inter'] mt-8">Kesimpulan dari Problems</div>
-                        </div> 
+                        
                     </div>
                     <div className='h-[98px] w-full mt-4 px-5 py-5 rounded-[20px] flex flex-col gap-3 bg-white shadow-xl'>
                         <p className="w-[697px] text-neutral-700 text-base font-bold font-['Inter']">Recommendation</p>
