@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
         );
       }
 
-  const {jumlahFront,
+  const {
+    jumlahFront,
     targetProfit,
     oocLoader,
     oocHauler,
@@ -36,22 +37,22 @@ export async function POST(req: NextRequest) {
     
     await prisma.configuration.create({
         data: {
-          jumlahFront,
-          targetProfit,
-          oocLoader,
-          oocHauler,
-          rate,
-          ohda,
-          fuelPrice,
-          batasEmissi,
-          targetProduksi,
-          rfuLoader,
-          rfuHauler,
+          jumlahFront : jumlahFront,
+          targetProfit : targetProfit,
+          oocLoader: oocLoader,
+          oocHauler: oocHauler,
+          rate: rate,
+          ohda: ohda,
+          fuelPrice: fuelPrice,
+          batasEmissi: batasEmissi,
+          targetProduksi: targetProduksi,
+          rfuLoader: rfuLoader,
+          rfuHauler: rfuHauler,
         },
       });
 
     return NextResponse.json(
-      { message: "Config has been updated"},
+      { message: "Config has been created successfully"},
       { status: 201 }
     );
   } catch (error) {

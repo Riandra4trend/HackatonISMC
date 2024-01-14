@@ -75,7 +75,7 @@ model FleetProblems {
 }
 
 model Configuration {
-  id             String @id @default(uuid()) @db.Uuid
+  id             Int     @id @default(autoincrement()) @db.Integer
   jumlahFront    Int    @db.Integer
   targetProfit   Float  @db.Real
   oocLoader      Float  @db.Real

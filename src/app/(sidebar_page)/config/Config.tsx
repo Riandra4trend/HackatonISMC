@@ -10,86 +10,83 @@ import { useRouter } from "next/navigation";
 
 
 interface ConfigType{
-  total_front : number,
-  target_profit : number,
-  OOC_Loader : number,
-  OOC_Hauler : number,
-  Rate : number,
-  OHDA: number,
-  fuel_price : number,
-  batas_emisi : number,
-  target_produksi: number,
-  RFU_Loader : number,
-  RFU_Hauler : number,
+            jumlahFront : number,
+            targetProfit : number,
+            oocLoader : number,
+            oocHauler : number,
+            rate : number,
+            ohda: number,
+            fuelPrice : number,
+            batasEmissi : number,
+            targetProduksi: number,
+            rfuLoader : number,
+            rfuHauler : number,
 }
 
 const Config = ({config} : {config: Configuration[]}) => {
   const [newConfig, setNewConfig] = useState<ConfigType>(
     {
-      total_front : 0,
-      target_profit : 0,
-      OOC_Loader : 0,
-      OOC_Hauler : 0,
-      Rate : 0,
-      OHDA: 0,
-      fuel_price : 0,
-      batas_emisi : 0,
-      target_produksi: 0,
-      RFU_Loader : 0,
-      RFU_Hauler : 0,
+      jumlahFront : 0,
+      targetProfit : 0,
+      oocLoader : 0,
+      oocHauler : 0,
+      rate : 0,
+      ohda: 0,
+      fuelPrice : 0,
+      batasEmissi : 0,
+      targetProduksi: 0,
+      rfuLoader : 0,
+      rfuHauler : 0,
     }
   );
 
   const handleCreateItem = async (e: FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    console.log("create", newConfig);
-
-    if (!newConfig.total_front || !newConfig.target_profit || !newConfig.OOC_Loader || !newConfig.OOC_Hauler || !newConfig.Rate || !newConfig.OHDA || !newConfig.fuel_price || !newConfig.batas_emisi || !newConfig.target_produksi || !newConfig.RFU_Loader || !newConfig.RFU_Hauler) {
+    if (!newConfig.jumlahFront || !newConfig.targetProfit || !newConfig.oocLoader || !newConfig.oocHauler || !newConfig.rate || !newConfig.ohda || !newConfig.fuelPrice || !newConfig.batasEmissi || !newConfig.targetProduksi || !newConfig.rfuLoader || !newConfig.rfuHauler) {
       toast.error("Please fill all the fields.");
       return;
     }
-
+    
     try {
       // Adjust the API endpoint and server-side logic based on your requirements
       const response = await fetch(
-        process.env.NEXT_PUBLIC_WEB_URL + "/api/v1/Config",
+        process.env.NEXT_PUBLIC_WEB_URL + "/api/v1/config",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            jumlahFront : newConfig.total_front,
-            targetProfit : newConfig.target_profit,
-            oocLoader : newConfig.OOC_Loader,
-            oocHauler : newConfig.OOC_Hauler,
-            rate : newConfig.Rate,
-            ohda: newConfig.OHDA,
-            fuelPrice : newConfig.fuel_price,
-            batasEmissi : newConfig.batas_emisi,
-            targetProduksi: newConfig.target_produksi,
-            rfuLoader : newConfig.RFU_Loader,
-            rfuHauler : newConfig.RFU_Hauler,
+            jumlahFront : newConfig.jumlahFront,
+            targetProfit : newConfig.targetProfit,
+            oocLoader : newConfig.oocLoader,
+            oocHauler : newConfig.oocHauler,
+            rate : newConfig.rate,
+            ohda: newConfig.ohda,
+            fuelPrice : newConfig.fuelPrice,
+            batasEmissi : newConfig.batasEmissi,
+            targetProduksi: newConfig.targetProduksi,
+            rfuLoader : newConfig.rfuLoader,
+            rfuHauler : newConfig.rfuHauler,
           }),
         }
       );
 
       if (response?.ok) {
         setNewConfig({
-          total_front : 0,
-          target_profit : 0,
-          OOC_Loader : 0,
-          OOC_Hauler : 0,
-          Rate : 0,
-          OHDA: 0,
-          fuel_price : 0,
-          batas_emisi : 0,
-          target_produksi: 0,
-          RFU_Loader : 0,
-          RFU_Hauler : 0,
+          jumlahFront : 0,
+          targetProfit : 0,
+          oocLoader : 0,
+          oocHauler : 0,
+          rate : 0,
+          ohda: 0,
+          fuelPrice : 0,
+          batasEmissi : 0,
+          targetProduksi: 0,
+          rfuLoader : 0,
+          rfuHauler : 0,
         });
         toast.success("Successfully create item.");
+        setIsEdit(!isEdit);
         router.refresh();
       } else {
         toast.error("Error creating item.");
@@ -100,29 +97,6 @@ const Config = ({config} : {config: Configuration[]}) => {
       toast.error("Error posting item");
     }
   };
-
-  // const handleDelete = async (clotheId: string) => {
-  //   try {
-  //     // Adjust the API endpoint and server-side logic based on your requirements
-  //     const response = await fetch(
-  //       process.env.NEXT_PUBLIC_WEB_URL + `/api/v1/JenisPakaian/${clotheId}`,
-  //       {
-  //         method: "DELETE",
-  //       }
-  //     );
-
-  //     if (response?.ok) {
-  //       toast.success("Successfully delete item.");
-  //       router.refresh();
-  //     } else {
-  //       toast.error("Error deleting item.");
-  //       throw new Error("Error deleting item.");
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error("Error deleting item");
-  //   }
-  // };
 
   const router = useRouter();
   
@@ -135,38 +109,10 @@ const Config = ({config} : {config: Configuration[]}) => {
   const handleCancel = () => {
     setIsEdit(!isEdit);
   }
-  const handleSave = () => {
-    setIsEdit(!isEdit);
-  }
 
-  const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-
-    setNewConfig((prevItem) => ({
-      ...prevItem,
-      [name]: value,
-    }));
-  };
   
-  // const applyFiltersAndSort = (data : Configuration[]) => {
-  //   let filteredData = data;
-    
-  //   if (searchKeyword !== "") {
-  //     filteredData = filteredData.filter((item) =>
-  //       item.jumlahFront.includes(searchKeyword.toLowerCase())
-  //     );
-  //   }
-  //   return filteredData;
-  // };
-
-  // const filteredAndSortedData = applyFiltersAndSort(clothes);
-
-  // const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setSearchKeyword(event.target.value);
-  // };
-  // const filteredAndSortedData = transactions;
+  
+  
 
   const filteredAndSortedData = config;
 
@@ -217,39 +163,34 @@ const Config = ({config} : {config: Configuration[]}) => {
                 <div className='flex flex-col gap-5'>
                   <div className='flex flex-col gap-2'>
                     <h1>Total Front</h1>
-                    <input type="text" 
+                    <input type="number"
                     placeholder='    Total Front' 
                     className='border border-black rounded-full'
-                    value={newConfig.total_front}
-                    onChange={handleInputChange}
+                    onChange= {(e) => setNewConfig({ ...newConfig, jumlahFront: parseInt(e.target.value) })}
                      />
                   </div>
                   <div className='flex flex-col gap-2'>
                     <h1>Target Profit</h1>
                     <input type="text" placeholder='    Target Profit' className='border border-black rounded-full' 
-                    value={newConfig.target_profit}
-                    onChange={handleInputChange}
+                    onChange= {(e) => setNewConfig({ ...newConfig, targetProfit: parseInt(e.target.value) })}
                   />
                   </div>
                   <div className='flex flex-col gap-2'>
                     <h1>OOC_Loader</h1>
                     <input type="text" placeholder='    OOC_Loader' className='border border-black rounded-full'
-                    value={newConfig.OOC_Loader}
-                    onChange={handleInputChange}
+                    onChange= {(e) => setNewConfig({ ...newConfig, oocLoader: parseInt(e.target.value)  })}
                      />
                   </div>
                   <div className='flex flex-col gap-2'>
                     <h1>OOC_Hauler</h1>
                     <input type="text" placeholder='    OOC_Hauler' className='border border-black rounded-full'
-                    value={newConfig.OOC_Hauler}
-                    onChange={handleInputChange}
+                    onChange= {(e) => setNewConfig({ ...newConfig, oocHauler: parseInt(e.target.value)  })}
                      />
                   </div>
                   <div className='flex flex-col gap-2'>
                     <h1>Rate</h1>
                     <input type="text" placeholder='    Rate' className='border border-black rounded-full'
-                    value={newConfig.Rate}
-                    onChange={handleInputChange}
+                    onChange= {(e) => setNewConfig({ ...newConfig, rate: parseInt(e.target.value)  })}
                      />
                   </div>
                 </div>
@@ -257,36 +198,31 @@ const Config = ({config} : {config: Configuration[]}) => {
                   <div className='flex flex-col gap-2'>
                     <h1>OHDA</h1>
                     <input type="text" placeholder='    OHDA' className='border border-black rounded-full'
-                    value={newConfig.OHDA}
-                    onChange={handleInputChange}
+                    onChange= {(e) => setNewConfig({ ...newConfig, ohda: parseInt(e.target.value)  })}
                      />
                   </div>
                   <div className='flex flex-col gap-2'>
                     <h1>Fuel Price</h1>
                     <input type="text" placeholder='    Fuel Price' className='border border-black rounded-full'
-                    value={newConfig.fuel_price}
-                    onChange={handleInputChange}
+                    onChange= {(e) => setNewConfig({ ...newConfig, fuelPrice: parseInt(e.target.value)  })}
                      />
                   </div>
                   <div className='flex flex-col gap-2'>
                     <h1>Batas Emisi</h1>
                     <input type="text" placeholder='    Batas Emisi' className='border border-black rounded-full'
-                    value={newConfig.batas_emisi}
-                    onChange={handleInputChange}
+                    onChange= {(e) => setNewConfig({ ...newConfig, batasEmissi: parseInt(e.target.value)  })}
                     />
                   </div>
                   <div className='flex flex-col gap-2'>
                     <h1>Target Produksi</h1>
                     <input type="text" placeholder='    Target Produksi' className='border border-black rounded-full'
-                    value={newConfig.target_produksi}
-                    onChange={handleInputChange}
+                    onChange= {(e) => setNewConfig({ ...newConfig, targetProduksi: parseInt(e.target.value)  })}
                      />
                   </div>
                   <div className='flex flex-col gap-2'>
                     <h1>RFU Hauler</h1>
                     <input type="text" placeholder='    RFU Hauler' className='border border-black rounded-full' 
-                    value={newConfig.RFU_Hauler}
-                    onChange={handleInputChange}
+                    onChange= {(e) => setNewConfig({ ...newConfig, rfuHauler: parseInt(e.target.value)  })}
                     />
                   </div>
                 </div>
@@ -294,8 +230,7 @@ const Config = ({config} : {config: Configuration[]}) => {
                 <div className='flex flex-col gap-2'>
                     <h1>RFU Loader</h1>
                     <input type="text" placeholder='    RFU Loader' className='border border-black rounded-full' 
-                    value={newConfig.RFU_Loader}
-                    onChange={handleInputChange}
+                    onChange= {(e) => setNewConfig({ ...newConfig, rfuLoader: parseInt(e.target.value)  })}
                     />
                   </div>
                 </div>
