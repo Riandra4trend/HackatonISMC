@@ -4,24 +4,10 @@ import { FaBell } from "react-icons/fa";
 import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { Fleet } from "@prisma/client";
+import { useEffect } from "react";
 
 
-  // const applyFiltersAndSort = (
-  //   // data: JenisPakaian[]
-  //   ) => {
-  //   let filteredData = fleets;
-    
-  //   if (searchKeyword !== "") {
-  //     filteredData = filteredData.filter((item) =>
-  //       item.name.toLowerCase().includes(searchKeyword.toLowerCase())
-  //     );
-  //   }
-  //   return filteredData;
-  // };
-
-  // Menampilkan data sudah jalan atau belum
-  // const filteredAndSortedData = applyFiltersAndSort(clothes);
-  const months = [
+const months = [
   {
     value: "01",
     label: "Jan",
@@ -106,24 +92,105 @@ const years = [
     label: "2018",
   },
 ];
-const ReportBulanan = ({ fleets }: { fleets: Fleet[] }) => {
-    const [selectedMonth, setSelectedMonth] = useState("");
+
+interface Fleet {
+  id: number;
+  name: string;
+  prodtyLoader?: number | null;
+  rate?: number | null;
+  haulers: Hauler[];
+  prodtys: Prodty[];
+  FleetProblems: FleetProblem[];
+}
+
+interface Hauler {
+  id: number;
+  assign: string | null;
+  distance?: number | null;
+  operator: string | null;
+  isReady: boolean;
+  idFleet?: number | null;
+}
+
+interface Prodty {
+  id: number;
+  prodty?: number | null;
+  fleetId?: number | null;
+}
+
+interface FleetProblem {
+  fleetId: number;
+  problemId: number;
+  longTime: number;
+  createdAt: string;
+  fleet: Fleet;
+  problem: Problem;
+}
+
+interface Problem {
+  id: number;
+  name: string;
+  timestamp: string;
+  FleetProblems: FleetProblem[];
+}
+
+const ReportBulanan = () => {
+  const [selectedMonth, setSelectedMonth] = useState("");
     const [selectedYear, setSelectedYear] = useState("");
     const [searchKeyword, setSearchKeyword] = useState("");
-  
+    const [fleets, setFleets] = useState<Fleet[]>([]);
+    const [filteredFleets, setFilteredFleets] = useState<Fleet[]>([]);
+    
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearchKeyword(event.target.value);
     };
-  
+    const applyFiltersAndSort = (
+      data: Fleet[]
+      ) => {
+      let filteredData = fleets;
+      
+      if (searchKeyword !== "") {
+        filteredData = filteredData.filter((item) =>
+          item.name.toLowerCase().includes(searchKeyword.toLowerCase())
+        );
+      }
+      return filteredData;
+    };
+    
+    
     const handleMonthClick = (value: any) => {
       setSelectedMonth(value);
     };
-  
+    
     const handleYearClick = (value: any) => {
       setSelectedYear(value);
     };
     
-
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            process.env.NEXT_PUBLIC_WEB_URL + '/api/v1/fleet',
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          ); // Replace with your actual API endpoint
+          const data = await response.json();
+          console.log("fetched data :", data);
+          setFleets(data.fleets);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+      
+      
+      fetchData();
+    }, []);
+    
+    const data = applyFiltersAndSort(fleets);
 
     return (
       <div className="w-full bg-[#F7F7F7] flex flex-col p-[24px] gap-4">
@@ -201,51 +268,60 @@ const ReportBulanan = ({ fleets }: { fleets: Fleet[] }) => {
         <div className="w-full h-[502px] bg-white rounded-[16px] overflow-y-scroll" id="style-2">
           <div className="mx-[30px] my-[28px] flex flex-wrap justify-center gap-8">
             {/* Kode fleet card */}
-            {fleets.map((item, index) => (
-              <div
-                key={index}
-                className="bg-white w-[308px] h-[446px] rounded-[10px] shadow-xl overflow-y-scroll pl-4 py-5" id="style-2"
-              >
-                <h1 className="text-neutral-700 text-base font-bold font-['Inter']">
-                  {" "}
-                  {item.nama}
-                </h1>
-                <div className="flex flex-col gap-[26px]">
-                  <div className="flex flex-col gap-4">
-                    <p className="text-zinc-500 text-base font-medium font-['Inter']">
-                      Problems
-                    </p>
-                    <p className="text-neutral-700 text-base font-normal font-['Inter']">
-                      {item.problem}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-4">
-                    <p className="text-zinc-500 text-base font-medium font-['Inter']">
-                      Carbon Emission
-                    </p>
-                    <p className="text-neutral-700 flex flex-wrap text-base font-normal font-['Inter']">
-                      {item.carbonEmision}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-4">
-                    <p className="text-zinc-500 text-base font-medium font-['Inter']">
-                      Match Vector
-                    </p>
-                    <p className="text-neutral-700 text-base font-normal font-['Inter']">
-                      {item.matchFactor}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-4">
-                    <p className="text-zinc-500 text-base flex flex-wrap font-medium font-['Inter']">
-                      Goals
-                    </p>
-                    <p className="text-neutral-700 text-base font-normal font-['Inter']">
-                      {item.goals}
-                    </p>
-                  </div>
-                </div>
+            {data.map((item, index) => (
+          <div
+            key={index}
+            className="bg-white w-[308px] h-[446px] rounded-[10px] shadow-xl overflow-y-scroll pl-4 py-5"
+            id="style-2"
+          >
+            <h1 className="text-neutral-700 text-base font-bold font-['Inter']">
+              {item.name}
+            </h1>
+            <div className="flex flex-col gap-[26px]">
+              <div className="flex flex-col gap-4">
+                <p className="text-zinc-500 text-base font-medium font-['Inter']">
+                  Problems
+                </p>
+                {/* Assuming FleetProblems is an array on Fleet, you can map through it */}
+                {item.FleetProblems.map((fleetProblem, idx) => (
+                  <p
+                    key={idx}
+                    className="text-neutral-700 text-base font-normal font-['Inter']"
+                  >
+                    {fleetProblem.problem.name}
+                  </p>
+                ))}
               </div>
-            ))}
+              <div className="flex flex-col gap-4">
+                <p className="text-zinc-500 text-base font-medium font-['Inter']">
+                  Carbon Emission
+                </p>
+                <p className="text-neutral-700 flex flex-wrap text-base font-normal font-['Inter']">
+                  {item.haulers.reduce(
+                    (totalDistance, hauler) => totalDistance + (hauler.distance ?? 0),
+                    0
+                  ) * 25} {/* Assuming distance is in kilometers */}
+                </p>
+              </div>
+              <div className="flex flex-col gap-4">
+                <p className="text-zinc-500 text-base font-medium font-['Inter']">
+                  Match Vector
+                </p>
+                <p className="text-neutral-700 text-base font-normal font-['Inter']">
+                  {item.prodtyLoader / item.haulers.length} {/* Assuming prodtyLoader is defined */}
+                </p>
+              </div>
+              <div className="flex flex-col gap-4">
+                <p className="text-zinc-500 text-base flex flex-wrap font-medium font-['Inter']">
+                  Goals
+                </p>
+                <p className="text-neutral-700 text-base font-normal font-['Inter']">
+                  Done
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
           </div>
         </div>
       </div>

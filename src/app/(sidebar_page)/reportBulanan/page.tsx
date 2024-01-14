@@ -12,25 +12,7 @@ const Page = async () => {
 
   if (!session) redirect("/login");
 
-  try {
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_WEB_URL + `/api/v1/fleet`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        }
-      }
-    );
-
-    const fleet = res;
-    console.log(fleet)
-
-
-  } catch (error) {
-    console.error(error);
-    
-  }
+  return(<ReportBulanan />);
 
 };
 
