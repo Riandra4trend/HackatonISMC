@@ -21,7 +21,7 @@ enum Role {
 }
 
 model Loader {
-  id           String  @id @default(uuid()) @db.Uuid
+  id           Int  @id @default(autoincrement()) @db.Integer
   productivity Float?  @default(0) @db.Real
   assign       String? @default("-") @db.VarChar(256)
   workingHours Int?    @default(0) @db.Integer
@@ -41,9 +41,10 @@ model Hauler {
 
 model Prodty {
   id      Int     @id @default(autoincrement()) @db.Integer
-  prodty  Float? @db.Real
+  prodty  Float @db.Real
   fleet   Fleet?  @relation(fields: [fleetId], references: [id])
   fleetId Int?   @db.Integer 
+  longTime Int   @default(0) @db.Integer
 }
 
 model Fleet {  
@@ -54,24 +55,17 @@ model Fleet {
   haulers       Hauler[]
   prodtys       Prodty[]
   FleetProblems FleetProblems[]
-}
-
-model Problem {
-  id             Int       @id @default(autoincrement()) @db.Integer
-  name           String          @db.VarChar(256)
-  timestamp      DateTime // Untuk menyimpan waktu terjadinya problem
-  FleetProblems  FleetProblems[]
+  emisiKarbon   Float?          @db.Real
 }
 
 model FleetProblems {
-  fleetId   Int      @db.Integer 
-  fleet     Fleet    @relation(fields: [fleetId], references: [id])
-  problemId Int     @db.Integer 
-  problem   Problem  @relation(fields: [problemId], references: [id])
+  id        Int      @id @default(autoincrement()) @db.Integer
+  name      String   @db.VarChar(256)
+  fleetId   Int?     @db.Integer 
+  fleet     Fleet?   @relation(fields: [fleetId], references: [id])
   longTime  Int      @default(0) @db.Integer
+  detail    String   @default("-") @db.VarChar(256)
   createdAt DateTime @default(now()) @db.Timestamp
-
-  @@id([fleetId, problemId])
 }
 
 model Configuration {

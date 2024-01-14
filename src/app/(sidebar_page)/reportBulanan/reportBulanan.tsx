@@ -194,28 +194,28 @@ const ReportBulanan = () => {
     const [matchVector, setMatchVector] = useState<number | null>(null);
 
     // Function to calculate matchVector
-    const calculateMatchVector = (prodtyValues: number[], haulersCount: number) => {
-      const currentProdty = prodtyValues[new Date().getSeconds() / 30];
-      const totalProdty = prodtyValues.reduce((sum, prodty) => sum + prodty, 0);
-      const matchVectorValue = data.fleets.prodtyLoader / (haulersCount * currentProdty);
-      return matchVectorValue;
-    };
+    // const calculateMatchVector = (prodtyValues: number[], haulersCount: number) => {
+    //   const currentProdty = prodtyValues[new Date().getSeconds() / 30];
+    //   const totalProdty = prodtyValues.reduce((sum, prodty) => sum + prodty, 0);
+    //   const matchVectorValue = data.fleets.prodtyLoader / (haulersCount * currentProdty);
+    //   return matchVectorValue;
+    // };
   
-    useEffect(() => {
-      // Set up a timer to recalculate matchVector every 30 seconds
-      const timer = setInterval(() => {
-        // Use the calculateMatchVector function with current fleet data
-        const newMatchVector = calculateMatchVector(item.prodtys.map((p) => p.prodty ?? 0), item.haulers.length);
-        setMatchVector(newMatchVector);
-      }, 30000); // 30 seconds interval
+    // useEffect(() => {
+    //   // Set up a timer to recalculate matchVector every 30 seconds
+    //   const timer = setInterval(() => {
+    //     // Use the calculateMatchVector function with current fleet data
+    //     const newMatchVector = calculateMatchVector(item.prodtys.map((p) => p.prodty ?? 0), item.haulers.length);
+    //     setMatchVector(newMatchVector);
+    //   }, 30000); // 30 seconds interval
   
-      // Initial calculation on component mount
-      const initialMatchVector = calculateMatchVector(item.prodtys.map((p) => p.prodty ?? 0), item.haulers.length);
-      setMatchVector(initialMatchVector);
+    //   // Initial calculation on component mount
+    //   const initialMatchVector = calculateMatchVector(item.prodtys.map((p) => p.prodty ?? 0), item.haulers.length);
+    //   setMatchVector(initialMatchVector);
   
-      // Clear the timer on component unmount
-      return () => clearInterval(timer);
-    }, [item]);
+    //   // Clear the timer on component unmount
+    //   return () => clearInterval(timer);
+    // }, [item]);
     return (
       <div className="w-full bg-[#F7F7F7] flex flex-col p-[24px] gap-4">
         <div className="w-full h-20 bg-white rounded-[16px] text-black flex flex-row px-5 justify-between items-center">
