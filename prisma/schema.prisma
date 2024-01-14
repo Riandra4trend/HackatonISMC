@@ -56,9 +56,17 @@ model Fleet {
   haulers       Hauler[]
   prodtys       Prodty[]
   FleetProblems FleetProblems[]
-  emisiKarbon   EmissiKarbon[]      
+  emisiKarbon   EmissiKarbon[] 
+  matchVectors  matchVector[]     
 }
 
+model matchVector {
+  id        Int      @id @default(autoincrement()) @db.Integer
+  fleetId   Int?     @db.Integer 
+  fleet     Fleet?   @relation(fields: [fleetId], references: [id])
+  MF    Float   @db.Real
+  createdAt DateTime  @db.Timestamp
+}
 model EmissiKarbon {
   id        Int      @id @default(autoincrement()) @db.Integer
   fleetId   Int?     @db.Integer 
