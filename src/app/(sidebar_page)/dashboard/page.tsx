@@ -9,7 +9,9 @@ const page = async () => {
     const session = await getServerSession(authOptions) as Session;
   
     if (!session) redirect("/login");
-    return(<Dashboard />);
+    return(
+        <Dashboard />
+    );
 };
 
 export default page;;
