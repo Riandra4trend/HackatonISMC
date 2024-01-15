@@ -310,6 +310,17 @@ const calculateEmissionPercentage = (fleets: Fleet[], config: Configuration[]): 
   return emissionPercentage;
 };
 
+const findFleetWithHighestProblems = (fleets: Fleet[]): Fleet | null => {
+  if (fleets.length === 0) return null;
+
+  return fleets.reduce((maxFleet, currentFleet) => {
+    return currentFleet.FleetProblems.length > maxFleet.FleetProblems.length ? currentFleet : maxFleet;
+  }, fleets[0]);
+};
+
+const fleetWithHighestProblems = findFleetWithHighestProblems(fleets);
+const highestProblem = fleetWithHighestProblems?.FleetProblems.length;
+const namaFleet = fleetWithHighestProblems?.name;
 // Panggil fungsi-fungsi tersebut di dalam komponen reportAnalysis
 const totalProfit = calculateTotalProfit(fleets, config);
 const emissionPercentage = calculateEmissionPercentage(fleets, config) * 100 + "%";
@@ -391,7 +402,8 @@ console.log("batasEmisi",config[0].batasEmissi)
                             <div className="text-neutral-700 text-base font-bold font-['Inter']">Problems</div>
                             <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4"><span className='font-bold'>Total :</span> {totalProblems}</div>
                             <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4"><span className='font-bold'>Average per fleet :</span> {averageProblemsPerFleet}</div>
-                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4"><span className='font-bold'>Highest problems from fleet :</span> </div>
+                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4"><span className='font-bold'>Highest problems from fleet :</span> {highestProblem}</div>
+                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4"><span className='font-bold'>Fleet dengan Problem terbanyak:</span> {namaFleet}</div>
                         </div>
                         <div className='py-4 px-6 w-1/3 bg-white shadow-xl rounded-[20px]'>
                             <div className="text-neutral-700 text-base font-bold font-['Inter']">Match Factor</div>
