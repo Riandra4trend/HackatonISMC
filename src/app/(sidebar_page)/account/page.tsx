@@ -10,7 +10,7 @@ const page = async () => {
     const session = await getServerSession(authOptions) as Session;
   
     if (!session) redirect("/login");
-    return(<Account />);
+    return(<Account session={session}/>);
 };
 
 export default page;
