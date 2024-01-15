@@ -7,27 +7,27 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'r
 
 const grafikDash: grafikDashProps[] = [
     {
-        week: "week-1",
+        week: "Jam-0",
         production: "100",
     },
     {
-        week: "2",
+        week: "1",
         production: "200",
     },
     {
-        week: "3",
+        week: "2",
         production: "150",
     },
     {
-        week: "4",
+        week: "3",
         production: "300",
     }
 ]
 
 const tableData = [
-    ['Header 1', 'Header 2', 'Header 3', 'Header 4', 'Header 5', 'Header 6', 'Header 7'],
-    ['Row 1 Data 1', 'Row 1 Data 2', 'Row 1 Data 3', 'Row 1 Data 4', 'Row 1 Data 5', 'Row 1 Data 6', 'Row 1 Data 7'],
-    ['Row 2 Data 1', 'Row 2 Data 2', 'Row 2 Data 3', 'Row 2 Data 4', 'Row 2 Data 5', 'Row 2 Data 6', 'Row 2 Data 7'],
+    ['Tanggal', 'PIT', 'Fleet', 'Jam', 'Problems', 'Duration(Min)', 'Detail'],
+    ['1', 'Utara', 'EXC2023', '00', 'A', '10.00', '-'],
+    ['1', 'Utara', 'EXC2023', '01', 'B', '10.00', '-'],
 ];
 
 export default function ProductionOverview() {
@@ -63,7 +63,7 @@ export default function ProductionOverview() {
                 <div className="w-2/3 bg-white rounded-[16px] p-5 justify-between items-center overflow-y-scroll">
                     <div className='p-2 flex flex-col gap-4'>
                         <h1 className="text-neutral-700 text-xl font-inter">
-                            Produksi per Bulan
+                            Produksi per Hari
                         </h1>
                         {!isGrafikDashEmpty ? (
                                 <div className=''>
@@ -112,7 +112,7 @@ export default function ProductionOverview() {
                             <thead className='border-2 border-slate-800'>
                                 <tr>
                                     {tableData[0].map((header, index) => (
-                                        <th key={index}>{header}</th>
+                                        <th key={index} className='border-2 border-slate-800'>{header}</th>
                                     ))}
                                 </tr>
                             </thead>
@@ -120,7 +120,7 @@ export default function ProductionOverview() {
                                 {tableData.slice(1).map((row, index) => (
                                     <tr key={index} className='border-2 border-slate-800'>
                                         {row.map((data, index) => (
-                                            <td key={index}>{data}</td>
+                                            <td key={index} className='border-2 border-slate-800'>{data}</td>
                                         ))}
                                     </tr>
                                 ))}
@@ -134,7 +134,7 @@ export default function ProductionOverview() {
                             Achievement to Goal
                         </h1>
                         <div className='w-fit mx-auto border-2 border-[#0F231F] text-[#0F231F] font-inter p-3 px-10 rounded-[16px] text-lg font-semibold'>
-                            100%
+                            93%
                         </div>
                     </div>
                 </div>
