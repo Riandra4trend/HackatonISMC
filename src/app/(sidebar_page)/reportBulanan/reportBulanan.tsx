@@ -1,3 +1,26 @@
+// Function to calculate matchVector
+// const calculateMatchVector = (prodtyValues: number[], haulersCount: number) => {
+//   const currentProdty = prodtyValues[new Date().getSeconds() / 30];
+//   const totalProdty = prodtyValues.reduce((sum, prodty) => sum + prodty, 0);
+//   const matchVectorValue = data.fleets.prodtyLoader / (haulersCount * currentProdty);
+//   return matchVectorValue;
+// };
+
+// useEffect(() => {
+//   // Set up a timer to recalculate matchVector every 30 seconds
+//   const timer = setInterval(() => {
+//     // Use the calculateMatchVector function with current fleet data
+//     const newMatchVector = calculateMatchVector(item.prodtys.map((p) => p.prodty ?? 0), item.haulers.length);
+//     setMatchVector(newMatchVector);
+//   }, 30000); // 30 seconds interval
+
+//   // Initial calculation on component mount
+//   const initialMatchVector = calculateMatchVector(item.prodtys.map((p) => p.prodty ?? 0), item.haulers.length);
+//   setMatchVector(initialMatchVector);
+
+//   // Clear the timer on component unmount
+//   return () => clearInterval(timer);
+// }, [item]);
 
 "use client";
 import { FaBell } from "react-icons/fa";
@@ -59,10 +82,6 @@ const months = [
 
 const years = [
   {
-    value: "2025",
-    label: "2025",
-  },
-  {
     value: "2024",
     label: "2024",
   },
@@ -92,45 +111,61 @@ const years = [
   },
 ];
 
-interface Fleet {
-  id: number;
-  name: string;
-  prodtyLoader?: number | null;
-  rate?: number | null;
-  haulers: Hauler[];
-  prodtys: Prodty[];
-  FleetProblems: FleetProblem[];
-}
-
 interface Hauler {
   id: number;
-  assign: string | null;
-  distance?: number | null;
-  operator: string | null;
+  assign?: string;
+  distance?: number;
+  operator?: string;
   isReady: boolean;
-  idFleet?: number | null;
+  fleet?: Fleet;
+  idFleet?: number;
 }
 
 interface Prodty {
   id: number;
-  prodty?: number | null;
-  fleetId?: number | null;
+  prodty: number;
+  fleet?: Fleet;
+  fleetId?: number;
+  longTime: number;
+  Date: string; // Gunakan tipe tanggal yang sesuai
+}
+
+interface Fleet {
+  id: number;
+  name: string;
+  prodtyLoader?: number;
+  rate?: number;
+  haulers: Hauler[];
+  prodtys: Prodty[];
+  FleetProblems: FleetProblem[];
+  emisiKarbon: EmissiKarbon[];
+  matchVectors: MatchVector[];
+}
+
+interface MatchVector {
+  id: number;
+  fleetId?: number;
+  fleet?: Fleet;
+  MF: number;
+  createdAt: string; // Gunakan tipe tanggal yang sesuai
+}
+
+interface EmissiKarbon {
+  id: number;
+  fleetId?: number;
+  fleet?: Fleet;
+  emisi: number;
+  createdAt: string; // Gunakan tipe tanggal yang sesuai
 }
 
 interface FleetProblem {
-  fleetId: number;
-  problemId: number;
-  longTime: number;
-  createdAt: string;
-  fleet: Fleet;
-  problem: Problem;
-}
-
-interface Problem {
   id: number;
   name: string;
-  timestamp: string;
-  FleetProblems: FleetProblem[];
+  fleetId?: number;
+  fleet?: Fleet;
+  longTime: number;
+  detail: string;
+  createdAt: string; // Gunakan tipe tanggal yang sesuai
 }
 
 const ReportBulanan = () => {
@@ -143,18 +178,7 @@ const ReportBulanan = () => {
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
       setSearchKeyword(event.target.value);
     };
-    const applyFiltersAndSort = (
-      data: Fleet[]
-      ) => {
-      let filteredData = fleets;
-      
-      if (searchKeyword !== "") {
-        filteredData = filteredData.filter((item) =>
-          item.name.toLowerCase().includes(searchKeyword.toLowerCase())
-        );
-      }
-      return filteredData;
-    };
+    
     
     
     const handleMonthClick = (value: any) => {
@@ -164,6 +188,72 @@ const ReportBulanan = () => {
     const handleYearClick = (value: any) => {
       setSelectedYear(value);
     };
+
+    const applyFiltersAndSort = (
+      data: Fleet[],
+      selectedMonth: string,
+      selectedYear: string
+    ) => {
+      let filteredData = data.map((fleet) => {
+        const filterDate = new Date(`${selectedYear}-${selectedMonth}-01T00:00:00.000Z`);
+    
+        // Apply filters to FleetProblems
+        const filteredFleetProblems = fleet.FleetProblems?.filter((problem) => {
+          const problemDate = new Date(problem.createdAt);
+          return (
+            problemDate.getMonth() === filterDate.getMonth() &&
+            problemDate.getFullYear() === filterDate.getFullYear()
+          );
+        });
+    
+        // Apply filters to EmissiKarbon
+        const filteredEmissiKarbon = fleet.emisiKarbon?.filter((emisi) => {
+          const emisiDate = new Date(emisi.createdAt);
+          return (
+            emisiDate.getMonth() === filterDate.getMonth() &&
+            emisiDate.getFullYear() === filterDate.getFullYear()
+          );
+        });
+    
+        // Apply filters to Prodtys
+        const filteredProdtys = fleet.prodtys?.filter((prodty) => {
+          const prodtyDate = new Date(prodty.Date);
+          return (
+            prodtyDate.getMonth() === filterDate.getMonth() &&
+            prodtyDate.getFullYear() === filterDate.getFullYear()
+          );
+        });
+    
+        // Apply filters to MatchVector
+        const filteredMatchVectors = fleet.matchVectors?.filter((matchVector) => {
+          const prodtyDate = new Date(matchVector.createdAt);
+          return (
+            prodtyDate.getMonth() === filterDate.getMonth() &&
+            prodtyDate.getFullYear() === filterDate.getFullYear()
+          );
+        });
+    
+        return {
+          ...fleet,
+          FleetProblems: filteredFleetProblems,
+          emisiKarbon: filteredEmissiKarbon,
+          prodtys: filteredProdtys,
+          matchVectors: filteredMatchVectors,
+        };
+      });
+    
+      // Filter data berdasarkan keyword pencarian
+      if (searchKeyword !== "") {
+        filteredData = filteredData.filter((item) =>
+          item.name.toLowerCase().includes(searchKeyword.toLowerCase())
+        );
+      }
+    
+      return filteredData;
+    };
+    
+    
+    
     
     
     useEffect(() => {
@@ -190,32 +280,15 @@ const ReportBulanan = () => {
       fetchData();
     }, []);
     
-    const data = applyFiltersAndSort(fleets);
+
+    
+    const data = applyFiltersAndSort(fleets, selectedMonth, selectedYear);
+    console.log("data :", data);
+    console.log("selectedMonth :", selectedMonth);
+    console.log("selectedYear :", selectedYear);
     const [matchVector, setMatchVector] = useState<number | null>(null);
 
-    // Function to calculate matchVector
-    // const calculateMatchVector = (prodtyValues: number[], haulersCount: number) => {
-    //   const currentProdty = prodtyValues[new Date().getSeconds() / 30];
-    //   const totalProdty = prodtyValues.reduce((sum, prodty) => sum + prodty, 0);
-    //   const matchVectorValue = data.fleets.prodtyLoader / (haulersCount * currentProdty);
-    //   return matchVectorValue;
-    // };
-  
-    // useEffect(() => {
-    //   // Set up a timer to recalculate matchVector every 30 seconds
-    //   const timer = setInterval(() => {
-    //     // Use the calculateMatchVector function with current fleet data
-    //     const newMatchVector = calculateMatchVector(item.prodtys.map((p) => p.prodty ?? 0), item.haulers.length);
-    //     setMatchVector(newMatchVector);
-    //   }, 30000); // 30 seconds interval
-  
-    //   // Initial calculation on component mount
-    //   const initialMatchVector = calculateMatchVector(item.prodtys.map((p) => p.prodty ?? 0), item.haulers.length);
-    //   setMatchVector(initialMatchVector);
-  
-    //   // Clear the timer on component unmount
-    //   return () => clearInterval(timer);
-    // }, [item]);
+
     return (
       <div className="w-full bg-[#F7F7F7] flex flex-col p-[24px] gap-4">
         <div className="w-full h-20 bg-white rounded-[16px] text-black flex flex-row px-5 justify-between items-center">
@@ -312,7 +385,7 @@ const ReportBulanan = () => {
                     key={idx}
                     className="text-neutral-700 text-base font-normal font-['Inter']"
                   >
-                    {fleetProblem.problem.name}
+                    {fleetProblem.name}
                   </p>
                 ))}
               </div>
@@ -321,10 +394,10 @@ const ReportBulanan = () => {
                   Carbon Emission
                 </p>
                 <p className="text-neutral-700 flex flex-wrap text-base font-normal font-['Inter']">
-                  {item.haulers.reduce(
-                    (totalDistance, hauler) => totalDistance + (hauler.distance ?? 0),
+                  {item.emisiKarbon.reduce(
+                    (totalEmisi, emisiKarbon) => totalEmisi + ( emisiKarbon.emisi?? 0),
                     0
-                  ) * 25} {/* Assuming distance is in kilometers */}
+                  ) * 30} {/* Assuming distance is in kilometers */}
                 </p>
               </div>
               <div className="flex flex-col gap-4">
@@ -333,7 +406,7 @@ const ReportBulanan = () => {
                 </p>
                 <p className="text-neutral-700 text-base font-normal font-['Inter']">
                 {/* HEAR MATCHVECTOR PLEASE */}
-                  
+                  {item.matchVectors[0]?.MF ?? 0}
                 </p>
               </div>
               <div className="flex flex-col gap-4">

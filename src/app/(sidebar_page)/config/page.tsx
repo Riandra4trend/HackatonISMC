@@ -1,4 +1,4 @@
-import Config from "./config";
+import Config from "./Config";
 // import Register from "@/app/register/Register";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";

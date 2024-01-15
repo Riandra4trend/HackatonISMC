@@ -20,13 +20,11 @@ export async function GET(req: NextRequest) {
       try {
         const fleets = await prisma.fleet.findMany({
           include: {
-            FleetProblems: {
-              include: {
-                problem: true,
-              },
-            },
+            FleetProblems: true,
             prodtys: true,
             haulers: true,
+            emisiKarbon: true,
+            matchVectors: true,
           },
         });
 
