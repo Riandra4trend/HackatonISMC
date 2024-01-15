@@ -58,6 +58,10 @@ const grafikDash: grafikDashProps[] = [
     }
 ]
 
+function calculateLinearProgramming() {
+    
+}
+
 export default function Dashboard() {
     const router = useRouter()
     const isFleetEmpty  = !Array.isArray(fleetCard) || fleetCard.length < 1 || !fleetCard

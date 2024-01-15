@@ -14,7 +14,7 @@ export default function DashCard({data} : {data: fleetProps}) {
             <Image 
                 src="/landing/tone1.svg" 
                 alt="cctv" 
-                width={296} 
+                width={316} 
                 height={185}
                 className="rounded-[20px]"
             />

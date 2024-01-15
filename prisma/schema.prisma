@@ -45,6 +45,7 @@ model Prodty {
   fleet   Fleet?  @relation(fields: [fleetId], references: [id])
   fleetId Int?   @db.Integer 
   longTime Int   @default(0) @db.Integer
+  Date     DateTime @db.Timestamp    
 }
 
 model Fleet {  
@@ -55,7 +56,23 @@ model Fleet {
   haulers       Hauler[]
   prodtys       Prodty[]
   FleetProblems FleetProblems[]
-  emisiKarbon   Float?          @db.Real
+  emisiKarbon   EmissiKarbon[] 
+  matchVectors  matchVector[]     
+}
+
+model matchVector {
+  id        Int      @id @default(autoincrement()) @db.Integer
+  fleetId   Int?     @db.Integer 
+  fleet     Fleet?   @relation(fields: [fleetId], references: [id])
+  MF    Float   @db.Real
+  createdAt DateTime  @db.Timestamp
+}
+model EmissiKarbon {
+  id        Int      @id @default(autoincrement()) @db.Integer
+  fleetId   Int?     @db.Integer 
+  fleet     Fleet?   @relation(fields: [fleetId], references: [id])
+  emisi     Float    @db.Real
+  createdAt DateTime @default(now()) @db.Timestamp
 }
 
 model FleetProblems {
