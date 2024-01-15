@@ -1,3 +1,44 @@
+// const calculateTotalProblems = fleets.reduce((total, fleet) => total + fleet.FleetProblems.length, 0); {
+  // Menggunakan reduce untuk menjumlahkan total masalah dari seluruh armada
+  
+// };
+
+
+// const totalFleets = fleets.length;
+// const averageProblemsPerFleet = calculateTotalProblems / totalFleets;
+
+// const findFleetWithHighestProblems = (fleets: Fleet[]) => {
+//   if (fleets.length === 0) return null;
+
+//   return fleets.reduce((maxFleet, currentFleet) => {
+//     return currentFleet.FleetProblems.length > maxFleet.FleetProblems.length ? currentFleet : maxFleet;
+//   }, fleets[0]);
+// };
+
+// // Function to find the common problems from all fleets
+// const findCommonProblemsFromAllFleets = (fleets: Fleet[]): Problem[] => {
+//   if (fleets.length === 0) return [];
+
+//   const allProblems = fleets.reduce((problems, fleet) => {
+//     return problems.concat(fleet.FleetProblems.map((fleetProblem) => fleetProblem.problem));
+//   }, [] as Problem[]);
+
+//   // Filter out duplicates
+//   const uniqueProblems = allProblems.filter((problem, index, self) => {
+//     return index === self.findIndex((p) => p.id === problem.id);
+//   });
+
+//   return uniqueProblems;
+// };
+
+// ... (kode sebelumnya)
+
+// Get the fleet with the highest number of problems
+// const fleetWithHighestProblems = findFleetWithHighestProblems(fleets);
+
+// // Get the common problems from all fleets
+// const commonProblems = findCommonProblemsFromAllFleets(fleets);
+
 "use client";
 import React from 'react';
 import { FaBell } from 'react-icons/fa';
@@ -58,46 +99,63 @@ const grafik = [
     },
 ]
 
+interface Hauler {
+  id: number;
+  assign?: string;
+  distance?: number;
+  operator?: string;
+  isReady: boolean;
+  fleet?: Fleet;
+  idFleet?: number;
+}
+
+interface Prodty {
+  id: number;
+  prodty: number;
+  fleet?: Fleet;
+  fleetId?: number;
+  longTime: number;
+  Date: string; // Gunakan tipe tanggal yang sesuai
+}
+
 interface Fleet {
-    id: number;
-    name: string;
-    prodtyLoader?: number | null;
-    rate?: number | null;
-    haulers: Hauler[];
-    prodtys: Prodty[];
-    FleetProblems: FleetProblem[];
-  }
-  
-  interface Hauler {
-    id: number;
-    assign: string | null;
-    distance?: number | null;
-    operator: string | null;
-    isReady: boolean;
-    idFleet?: number | null;
-  }
-  
-  interface Prodty {
-    id: number;
-    prodty?: number | null;
-    fleetId?: number | null;
-  }
-  
-  interface FleetProblem {
-    fleetId: number;
-    problemId: number;
-    longTime: number;
-    createdAt: string;
-    fleet: Fleet;
-    problem: Problem;
-  }
-  
-  interface Problem {
-    id: number;
-    name: string;
-    timestamp: string;
-    FleetProblems: FleetProblem[];
-  }
+  id: number;
+  name: string;
+  prodtyLoader?: number;
+  rate?: number;
+  haulers: Hauler[];
+  prodtys: Prodty[];
+  FleetProblems: FleetProblem[];
+  emisiKarbon: EmissiKarbon[];
+  matchVectors: MatchVector[];
+}
+
+interface MatchVector {
+  id: number;
+  fleetId?: number;
+  fleet?: Fleet;
+  MF: number;
+  createdAt: string; // Gunakan tipe tanggal yang sesuai
+}
+
+interface EmissiKarbon {
+  id: number;
+  fleetId?: number;
+  fleet?: Fleet;
+  emisi: number;
+  createdAt: string; // Gunakan tipe tanggal yang sesuai
+}
+
+interface FleetProblem {
+  id: number;
+  name: string;
+  fleetId?: number;
+  fleet?: Fleet;
+  longTime: number;
+  detail: string;
+  createdAt: string; // Gunakan tipe tanggal yang sesuai
+}
+
 const reportAnalysis = ({config} : {config: Configuration[]}) => {
     
     const [fleets, setFleets] = useState<Fleet[]>([]);
@@ -149,48 +207,47 @@ const reportAnalysis = ({config} : {config: Configuration[]}) => {
         };
         fetchData();
       }, []);
+
       console.log(config[0].jumlahFront)
 
-      const calculateTotalProblems = fleets.FleetProblems.reduce((total, fleet) => total + fleet.FleetProblems.length, 0); {
-        // Menggunakan reduce untuk menjumlahkan total masalah dari seluruh armada
-        
-      };
+      // Fungsi untuk menghitung jumlah total seluruh problem dari seluruh fleet
+const calculateTotalProblems = (fleets: Fleet[]): number => {
+  return fleets.reduce((total, fleet) => total + fleet.FleetProblems.length, 0);
+};
 
-      
-      const totalFleets = fleets.length;
-      const averageProblemsPerFleet = totalProblems / totalFleets;
+// Fungsi untuk menghitung rata-rata masalah setiap fleet
+const calculateAverageProblemsPerFleet = (fleets: Fleet[]): number => {
+  const totalProblems = calculateTotalProblems(fleets);
+  const totalFleets = fleets.length;
+  return totalProblems / totalFleets;
+};
 
-      const findFleetWithHighestProblems = (fleets: Fleet[]) => {
-        if (fleets.length === 0) return null;
-    
-        return fleets.reduce((maxFleet, currentFleet) => {
-          return currentFleet.FleetProblems.length > maxFleet.FleetProblems.length ? currentFleet : maxFleet;
-        }, fleets[0]);
-      };
-    
-      // Function to find the common problems from all fleets
-      const findCommonProblemsFromAllFleets = (fleets: Fleet[]): Problem[] => {
-        if (fleets.length === 0) return [];
-    
-        const allProblems = fleets.reduce((problems, fleet) => {
-          return problems.concat(fleet.FleetProblems.map((fleetProblem) => fleetProblem.problem));
-        }, [] as Problem[]);
-    
-        // Filter out duplicates
-        const uniqueProblems = allProblems.filter((problem, index, self) => {
-          return index === self.findIndex((p) => p.id === problem.id);
-        });
-    
-        return uniqueProblems;
-      };
-    
-      // ... (kode sebelumnya)
-    
-      // Get the fleet with the highest number of problems
-      const fleetWithHighestProblems = findFleetWithHighestProblems(fleets);
-    
-      // Get the common problems from all fleets
-      const commonProblems = findCommonProblemsFromAllFleets(fleets);
+// Fungsi untuk menghitung jumlah seluruh match vector yang memiliki MF di bawah 0.9
+const calculateMatchVectorsUnder09 = (fleets: Fleet[]): number => {
+  return fleets.reduce((total, fleet) => {
+    return total + fleet.matchVectors.filter((vector) => vector.MF < 0.9).length;
+  }, 0);
+};
+
+// Fungsi untuk menghitung jumlah seluruh match vector yang memiliki MF antara 0.9 dan 1.1 (around one)
+const calculateMatchVectorsAroundOne = (fleets: Fleet[]): number => {
+  return fleets.reduce((total, fleet) => {
+    return total + fleet.matchVectors.filter((vector) => vector.MF >= 0.9 && vector.MF <= 1.1).length;
+  }, 0);
+};
+
+// Fungsi untuk menghitung jumlah seluruh match vector yang memiliki MF di atas 1
+const calculateMatchVectorsOver1 = (fleets: Fleet[]): number => {
+  return fleets.reduce((total, fleet) => {
+    return total + fleet.matchVectors.filter((vector) => vector.MF > 1.1).length;
+  }, 0);
+};
+
+const totalProblems = calculateTotalProblems(fleets);
+const averageProblemsPerFleet = calculateAverageProblemsPerFleet(fleets);
+const matchVectorsUnder09 = calculateMatchVectorsUnder09(fleets);
+const matchVectorsAroundOne = calculateMatchVectorsAroundOne(fleets);
+const matchVectorsOver1 = calculateMatchVectorsOver1(fleets);
 
     return (
         <div className="w-full bg-[#F7F7F7] flex flex-col p-[24px] gap-4">
@@ -262,10 +319,14 @@ const reportAnalysis = ({config} : {config: Configuration[]}) => {
                             <div className="text-neutral-700 text-base font-bold font-['Inter']">Problems</div>
                             <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Total {totalProblems}</div>
                             <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Average per fleet {averageProblemsPerFleet}</div>
-                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Highest problems from fleet {fleetWithHighestProblems ? fleetWithHighestProblems.name : 'N/A'} </div>
-                            <div className="w-[253px] text-neutral-700 text-base font-medium font-['Inter'] mt-8">Hal yang harus diperbaiki Terlebih dahulu : {commonProblems.map((problem) => (
-                  <div key={problem.id}>{problem.name}</div>
-                ))}</div>
+                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Highest problems from fleet </div>
+                        </div>
+                        <div className='py-4 px-6 w-1/3 bg-white shadow-xl rounded-[20px]'>
+                            <div className="text-neutral-700 text-base font-bold font-['Inter']">Match Factor</div>
+                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Above One {matchVectorsUnder09}</div>
+                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Around One {matchVectorsAroundOne} </div>
+                            <div className="text-zinc-500 text-base font-medium font-['Inter'] mt-4">Under One {matchVectorsOver1}</div>
+                            <div className="w-[253px] text-neutral-700 text-base font-medium font-['Inter'] mt-8">Kesimpulan dari Match Factor </div>
                         </div>
                         <div className='py-4 px-6 w-1/3 bg-white shadow-xl rounded-[20px]'>
                             <div className="text-neutral-700 text-base font-bold font-['Inter']">Match Factor</div>
