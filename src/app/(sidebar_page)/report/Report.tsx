@@ -3,7 +3,7 @@
 
 const Report = () => {
 return (
-    <p>Hello world</p>
+    <div></div>
 )}
 
 export default Report

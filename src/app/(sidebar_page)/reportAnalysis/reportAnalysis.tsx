@@ -49,55 +49,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { TbBuildingFactory } from "react-icons/tb";
 
-const grafik = [
-    {
-        bulan : "Jan",
-        emisi : "100",
-    },
-    {
-        bulan : "Feb",
-        emisi : "300",
-    },
-    {
-        bulan : "Maret",
-        emisi : "200",
-    },
-    {
-        bulan : "April",
-        emisi : "400",
-    },
-    {
-        bulan : "May",
-        emisi : "600",
-    },
-    {
-        bulan : "June",
-        emisi : "400",
-    },
-    {
-        bulan : "July",
-        emisi : "700",
-    },
-    {
-        bulan : "August",
-        emisi : "300"
-    },{
-        bulan : "Sept",
-        emisi : "100",
-    },
-    {
-        bulan : "Oct",
-        emisi : "300",
-    },
-    {
-        bulan : "Nov",
-        emisi : "200",
-    },
-    {
-        bulan : "Dec",
-        emisi : "300",
-    },
-]
+
 
 interface Hauler {
   id: number;
