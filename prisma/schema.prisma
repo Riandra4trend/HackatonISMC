@@ -20,17 +20,21 @@ enum Role {
   MANAGER
 }
 
-model Loader {
-  id           Int  @id @default(autoincrement()) @db.Integer
-  productivity Float?  @default(0) @db.Real
-  assign       String? @default("-") @db.VarChar(256)
-  workingHours Int?    @default(0) @db.Integer
-  operator     String? @default("-") @db.VarChar(256)
-  isReady      Boolean @default(true)
-}
+// model Loader {
+//   id           Int  @id @default(autoincrement()) @db.Integer
+//   name         String @default("-")
+//   productivity Float?  @default(0) @db.Real
+//   assign       String? @default("-") @db.VarChar(256)
+//   workingHours Int?    @default(0) @db.Integer
+//   operator     String? @default("-") @db.VarChar(256)
+//   isReady      Boolean @default(true)
+//   fleet        Fleet? @relation(fields: [idFleet],references: [id])
+//   idFleet      Int? @db.Integer
+// }
 
 model Hauler {
   id           Int    @id @default(autoincrement()) @db.Integer
+  name         String @default("-") @db.VarChar(256) 
   assign       String? @default("-") @db.VarChar(256)
   distance     Int?    @default(0) @db.Integer
   operator     String? @default("-") @db.VarChar(256)
@@ -53,6 +57,10 @@ model Fleet {
   name          String          @db.VarChar(256)
   prodtyLoader  Float?          @db.Real
   rate          Float?          @db.Real
+  assign       String? @default("-") @db.VarChar(256)
+  workingHours Int?    @default(0) @db.Integer
+  operator     String? @default("-") @db.VarChar(256)
+  isReady      Boolean @default(true)
   haulers       Hauler[]
   prodtys       Prodty[]
   FleetProblems FleetProblems[]

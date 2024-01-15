@@ -41,7 +41,7 @@ input::-ms-clear {
 
 #style-2::-webkit-scrollbar
 {
-	width: 10px;
+	width: 0px;
 	background-color: #F5F5F5;
 }
 
